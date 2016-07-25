@@ -1,0 +1,314 @@
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+TCP:64:EB:8C:DF:F2:78
+192.168.0.20
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+clear/cancel order button
+
+half half otioning
+drinks + extras optioning
+gelati size shit
+weekly specials
+orders on page 3
+
+file read read for orders
+
+deal with lock switch, app termination, appdelegation shit
+
+
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+OLD:
+
+//let itemFromIndex = [MenuItems.Capricciosa, MenuItems.Americana, MenuItems.Margerita, MenuItems.Ned_Kelly, MenuItems.Napoletana, MenuItems.Hawaiian, MenuItems.Marinara, MenuItems.Vegetarian, MenuItems.Mexican, MenuItems.Aussie, MenuItems.Peperoni, MenuItems.Goonawarra_Special, MenuItems.Chicken, MenuItems.MeatLovers, MenuItems.Johny_Special, MenuItems.Mushroom, MenuItems.RJ_Special, MenuItems.Lasagna, MenuItems.SpagBolognese, MenuItems.SpagMarinara, MenuItems.Fettuccine, MenuItems.Ravioli, MenuItems.Tortelloni, MenuItems.Gnocchi, MenuItems.VegePasta, MenuItems.Chick_Schnit, MenuItems.Chick_Parma, MenuItems.Gelati, MenuItems.Salad, MenuItems.Chips]
+
+/*
+func indexFromItem(item: MenuItems) -> Int {
+var itemNum = 0
+for i in itemFromIndex {
+if(item == i) {return itemNum}
+++itemNum
+}
+
+return 0
+}*/
+
+
+/*
+func itemFromIndex(index: Int) -> MenuItems {
+switch index {
+case 1: return MenuItems.Capricciosa
+case 2: return MenuItems.Americana
+case 3: return MenuItems.Margerita
+case 4: return MenuItems.Capricciosa
+case 5: return MenuItems.Capricciosa
+case 6: return MenuItems.Capricciosa
+case 7: return MenuItems.Capricciosa
+case 8: return MenuItems.Capricciosa
+case 8: return MenuItems.Capricciosa
+case 8: return MenuItems.Capricciosa
+case 8: return MenuItems.Capricciosa
+case 8: return MenuItems.Capricciosa
+case 8: return MenuItems.Capricciosa
+case 8: return MenuItems.Capricciosa
+case 8: return MenuItems.Capricciosa
+case 8: return MenuItems.Capricciosa
+case 8: return MenuItems.Capricciosa
+case 8: return MenuItems.Capricciosa
+case 8: return MenuItems.Capricciosa
+case 8: return MenuItems.Capricciosa
+default: break
+}
+}*/
+
+/*
+enum ProductCategory : String {
+case Washers = "washers", Dryers = "dryers", Toasters = "toasters"
+
+static let allValues = [Washers, Dryers, Toasters]
+}
+
+for category in ProductCategory.allValues{
+//Do something
+}
+*/
+/*
+//List of menu items:
+enum MenuItems: String {
+//Pizzas:
+case Capricciosa = "1"; case Americana = "2"; case Margerita = "3"
+case Ned_Kelly = "4"; case Napoletana = "5"; case Hawaiian = "6"
+case Marinara = "7"; case Vegetarian = "8"; case Mexican = "9"
+case Aussie = "10"; case Peperoni = "11"; case Goonawarra_Special = "12"
+case Chicken = "13"; case MeatLovers = "14"; case Johny_Special = "15"
+case Mushroom = "16"; case RJ_Special = "17"
+//Pastas:
+case Lasagna = "Lasagna"; case SpagBolognese = "Bolognese (Spag. only)"; case SpagMarinara = "Marinara (Spag. only)"
+case Fettuccine = "Fettuccine Carbonara"; case Ravioli = "Ravioli Bolognese"; case Tortelloni = "Tortelloni Bolognese"
+case Gnocchi = "Gnocchi Bolognese"; case VegePasta = "Vegetarian Pasta"
+//Other:
+case Chick_Schnit = "Chicken Schnitzel"; case Chick_Parma = "Chicken Parma"; case Gelati = "Gelati"
+case Salad = "Salad"; case Chips = "Chips"
+}
+*/
+
+//loop that sets button ingredients colours:
+//Ingredients.recipe[app.order.foods[app.indexPath!.row].item.rawValue][2]
+//app.order.foods[app.indexPath!.row].item.rawValue
+//print(app.order.foods[app.indexPath!.row].item)
+//print(Ingredients.recipe[app.order.foods[app.indexPath!.row].item.rawValue][2])
+/*
+for(var i = 0; i < Ingredients.recipe[app.order.foods[app.indexPath!.row].item.rawValue].count; ++i) {
+
+//print(Ingredients.recipe[app.order.foods[app.indexPath!.row].item.rawValue][i])
+
+//print(Ingredients.recipe[app.order.foods[app.indexPath!.row].item.rawValue][i].extra.rawValue)
+
+//extraCells[i].itemButton.setTitleColor(UIColor.greenColor(), forState: UIControlState.Normal)
+
+
+for(var x = 0; x < 24; ++x) {
+if(extraCells[i].index == Ingredients.recipe[app.order.foods[app.indexPath!.row].item.rawValue][x].extra.rawValue) {
+extraCells[i].itemButton.setTitleColor(UIColor.greenColor(), forState: UIControlState.Normal)
+}
+}
+
+}*/
+/*
+extrasList.hidden = true
+extrasList.reloadData()
+extrasList.hidden = false
+*/
+
+
+
+
+
+
+/*
+if(app.order.numOfItems != 0 /*&& app.useIndex*/) {
+
+//print(indexPath)
+
+//print(app.indexPath!.row)
+
+for(var i = 0; i < Ingredients.recipe[app.order.foods[app.indexPath!.row].item.rawValue].count; ++i) {
+
+//print(Ingredients.recipe[app.order.foods[app.indexPath!.row].item.rawValue][i])
+
+//print(Ingredients.recipe[app.order.foods[app.indexPath!.row].item.rawValue][i].extra.rawValue)
+if(Ingredients.recipe[app.order.foods[app.indexPath!.row].item.rawValue][i].extra == Ingredients(rawValue: cell.index + 1)) {
+//print(Ingredients(rawValue: cell.index + 1))
+cell.itemButton.setTitleColor(UIColor.greenColor(), forState: UIControlState.Normal)
+}
+
+
+}
+
+
+}*/
+
+
+//        if(indexPath.row == 5) {
+//            savecell = cell
+//        }
+
+
+
+
+
+
+
+
+/*
+//Array of ingredients in each menu item:
+static let recipe = [
+//ERROR:
+[Extra](),
+//1 - Capricciosa:
+[Extra(extra: Ingredients.TomatoSauce, minus: false),
+Extra(extra: Ingredients.Cheese, minus: false),
+Extra(extra: Ingredients.Ham, minus: false),
+Extra(extra: Ingredients.Mushroom, minus: false),
+Extra(extra: Ingredients.Olive, minus: false),
+Extra(extra: Ingredients.Anchovie, minus: false)],
+//2 - Americana:
+[Extra(extra: Ingredients.TomatoSauce, minus: false),
+Extra(extra: Ingredients.Cheese, minus: false),
+Extra(extra: Ingredients.Ham, minus: false),
+Extra(extra: Ingredients.Salami, minus: false),
+Extra(extra: Ingredients.Onion, minus: false)],
+//3 - Margerita:
+[Extra(extra: Ingredients.TomatoSauce, minus: false),
+Extra(extra: Ingredients.Cheese, minus: false),
+Extra(extra: Ingredients.Oregano, minus: false)],
+//4 - Ned Kelly:
+[Extra(extra: Ingredients.TomatoSauce, minus: false),
+Extra(extra: Ingredients.Cheese, minus: false),
+Extra(extra: Ingredients.Ham, minus: false),
+Extra(extra: Ingredients.Beef, minus: false),
+Extra(extra: Ingredients.Onion, minus: false)],
+//5 - Napoletana:
+[Extra(extra: Ingredients.TomatoSauce, minus: false),
+Extra(extra: Ingredients.Cheese, minus: false),
+Extra(extra: Ingredients.Anchovie, minus: false),
+Extra(extra: Ingredients.Garlic, minus: false)],
+//6 - Hawaiin:
+[Extra(extra: Ingredients.TomatoSauce, minus: false),
+Extra(extra: Ingredients.Cheese, minus: false),
+Extra(extra: Ingredients.Ham, minus: false),
+Extra(extra: Ingredients.Pineapple, minus: false)],
+//7 - Marinara:
+[Extra(extra: Ingredients.TomatoSauce, minus: false),
+Extra(extra: Ingredients.Cheese, minus: false),
+Extra(extra: Ingredients.Clams, minus: false),
+Extra(extra: Ingredients.Prawn, minus: false),
+Extra(extra: Ingredients.Garlic, minus: false)],
+//8 - Vegetarian:
+[Extra(extra: Ingredients.TomatoSauce, minus: false),
+Extra(extra: Ingredients.Cheese, minus: false),
+Extra(extra: Ingredients.Mushroom, minus: false),
+Extra(extra: Ingredients.Onion, minus: false),
+Extra(extra: Ingredients.Capsicum, minus: false),
+Extra(extra: Ingredients.Olive, minus: false)],
+//9 - Mexican:
+[Extra(extra: Ingredients.TomatoSauce, minus: false),
+Extra(extra: Ingredients.Cheese, minus: false),
+Extra(extra: Ingredients.Ham, minus: false),
+Extra(extra: Ingredients.Capsicum, minus: false),
+Extra(extra: Ingredients.Salami, minus: false),
+Extra(extra: Ingredients.Olive, minus: false)],
+//10 - Aussie:
+[Extra(extra: Ingredients.TomatoSauce, minus: false),
+Extra(extra: Ingredients.Cheese, minus: false),
+Extra(extra: Ingredients.Ham, minus: false),
+Extra(extra: Ingredients.Bacon, minus: false),
+Extra(extra: Ingredients.Egg, minus: false),
+Extra(extra: Ingredients.Onion, minus: false)],
+//11 - Peperoni:
+[Extra(extra: Ingredients.TomatoSauce, minus: false),
+Extra(extra: Ingredients.Cheese, minus: false),
+Extra(extra: Ingredients.Salami, minus: false),
+Extra(extra: Ingredients.Chilli, minus: false)],
+//12 - Goonawarra Special:
+[Extra(extra: Ingredients.TomatoSauce, minus: false),
+Extra(extra: Ingredients.Cheese, minus: false),
+Extra(extra: Ingredients.Ham, minus: false),
+Extra(extra: Ingredients.Mushroom, minus: false),
+Extra(extra: Ingredients.Onion, minus: false),
+Extra(extra: Ingredients.Capsicum, minus: false),
+Extra(extra: Ingredients.Salami, minus: false),
+Extra(extra: Ingredients.Olive, minus: false),
+Extra(extra: Ingredients.Pineapple, minus: false)],
+//13 - Chicken:
+[Extra(extra: Ingredients.TomatoSauce, minus: false),
+Extra(extra: Ingredients.Cheese, minus: false),
+Extra(extra: Ingredients.Ham, minus: false),
+Extra(extra: Ingredients.Chicken, minus: false),
+Extra(extra: Ingredients.Mushroom, minus: false)],
+//14 - Meat Lovers:
+[Extra(extra: Ingredients.TomatoSauce, minus: false),
+Extra(extra: Ingredients.Cheese, minus: false),
+Extra(extra: Ingredients.Ham, minus: false),
+Extra(extra: Ingredients.Bacon, minus: false),
+Extra(extra: Ingredients.Beef, minus: false),
+Extra(extra: Ingredients.Salami, minus: false)],
+//15 - Johny's Special:
+[Extra(extra: Ingredients.TomatoSauce, minus: false),
+Extra(extra: Ingredients.Cheese, minus: false),
+Extra(extra: Ingredients.Ham, minus: false),
+Extra(extra: Ingredients.Mushroom, minus: false),
+Extra(extra: Ingredients.Onion, minus: false),
+Extra(extra: Ingredients.Salami, minus: false),
+Extra(extra: Ingredients.Prawn, minus: false),
+Extra(extra: Ingredients.Olive, minus: false),
+Extra(extra: Ingredients.Garlic, minus: false)],
+//16 - Mushroom Pizza:
+[Extra(extra: Ingredients.TomatoSauce, minus: false),
+Extra(extra: Ingredients.Cheese, minus: false),
+Extra(extra: Ingredients.Mushroom, minus: false)],
+//17 - RJ Special:
+[Extra(extra: Ingredients.TomatoSauce, minus: false),
+Extra(extra: Ingredients.Cheese, minus: false),
+Extra(extra: Ingredients.Beef, minus: false),
+Extra(extra: Ingredients.Salami, minus: false),
+Extra(extra: Ingredients.Bacon, minus: false),
+Extra(extra: Ingredients.Chicken, minus: false),
+Extra(extra: Ingredients.BBQSauce, minus: false)]
+]*/
+
+
+
+
+/*
+func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+
+if(component == 0) {
+switch row {
+case 0: return Size.Small.rawValue
+case 1: return Size.Large.rawValue
+case 2: return Size.Family.rawValue
+default: return "PICKKER ERROR"
+}
+} else {
+return "\(row + 1)"
+}
+
+
+}
+
+
+func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+//drink stuff to go here?
+
+return 2
+}
+
+func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+if(component == 0) {return 3} else {return 17}
+}*/
+
+

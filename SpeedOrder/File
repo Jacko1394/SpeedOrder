@@ -1,0 +1,17 @@
+//Handles half-half optioning:
+if(app.order.foods[app.indexPath!.row].halfhalf) {
+rightText.text! = app.order.foods[app.indexPath!.row].extras(true, asComma: false)
+rightText.hidden = false
+rightTitle.text! = MenuItems.itemString[app.order.foods[app.indexPath!.row].item2!.rawValue]
+rightTitle.hidden = false
+} else { //Solo pizza:
+rightText.hidden = true
+rightTitle.hidden = true
+leftText.backgroundColor = UIColor.lightGrayColor()
+rightText.backgroundColor = UIColor.groupTableViewBackgroundColor()
+}
+
+
+
+
+
