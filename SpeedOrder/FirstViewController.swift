@@ -266,7 +266,11 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         } else {
             let cell = addressList.dequeueReusableCellWithIdentifier("addressItem") as! addressListCell
             var text = ""
-            for(var i = 0; i < arrayAddressText.count - 1; ++i) {text += arrayAddressText[i] + " "}
+            //for(var i = 0; i < arrayAddressText.count - 1; ++i) {}
+            for i in 0 ..< arrayAddressText.count - 1 {
+                text += arrayAddressText[i] + " "
+            }
+            
             cell.addressLabel.text! = text + indexes[indexPath.row]
             return cell
         }
@@ -303,15 +307,17 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
                     if(max <= addresses.characters.count) {
                         let tempArray = Array(addresses.characters)
                         var newString = ""
-                        for(var i = 0; i < max; ++i) {newString += "\(tempArray[i])"}
+                        //for(var i = 0; i < max; ++i) {newString += "\(tempArray[i])"}
+                        for i in 0 ..< max {newString += "\(tempArray[i])"}
                         if(newString.caseInsensitiveCompare(searchFor) == NSComparisonResult.OrderedSame) {foundIndexArray[x].append(index)}
                 }
-                ++index
+                index += 1
             }
-            ++x
+            x += 1
         }
         
-        for(x = 0; x < foundIndexArray.count; ++x) {
+        //for(x = 0; x < foundIndexArray.count; ++x) {
+        for x in 0 ..< foundIndexArray.count {
             for i in foundIndexArray[x] {stringArray.append((addressesArrays[x])[i] + place[x])}
         }
         return stringArray

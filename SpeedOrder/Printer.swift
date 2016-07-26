@@ -308,10 +308,13 @@ class Printer: NSObject, Epos2PtrReceiveDelegate {
         dateFormat.dateStyle = .NoStyle
         
         for o in orderList {
-            ++orderCount
+            orderCount += 1
             text += "[\(o.orderNumber)] •\(dateFormat.stringFromDate(o.timeDate)) •\(priceFormat.stringFromNumber(o.priceTotal)!)\n"
             total += o.priceTotal
-            for f in o.foods {if(f.item.rawValue < 18 || f.item.rawValue == 35) {++pizzaCount}}
+            //for f in o.foods {}
+            for f in o.foods {
+                if(f.item.rawValue < 18 || f.item.rawValue == 35) {pizzaCount += 1}
+            }
         }
         
         text += "------------------------\n"

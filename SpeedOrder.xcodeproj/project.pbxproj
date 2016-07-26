@@ -39,6 +39,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2F3869431D46F843002EA834 /* SpeedOrder.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = SpeedOrder.entitlements; sourceTree = "<group>"; };
 		2F8F917F1D4647C300FEE029 /* finalise.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = finalise.png; sourceTree = "<group>"; };
 		7B2BB8731C7B395400957772 /* retina title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "retina title.png"; sourceTree = "<group>"; };
 		7B391BAA1C5A5A9D00D64CAF /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
@@ -130,6 +131,7 @@
 		7BC82CCE1C5088F80035270B /* SpeedOrder */ = {
 			isa = PBXGroup;
 			children = (
+				2F3869431D46F843002EA834 /* SpeedOrder.entitlements */,
 				7B721C4D1C5FAEEC0079EF16 /* Pics */,
 				7BC82CE31C5089380035270B /* SDK */,
 				7BC82CCF1C5088F80035270B /* AppDelegate.swift */,
@@ -371,6 +373,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = SpeedOrder/SpeedOrder.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
@@ -395,6 +398,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = SpeedOrder/SpeedOrder.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;

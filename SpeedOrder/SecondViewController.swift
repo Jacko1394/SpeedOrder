@@ -10,7 +10,7 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
     let app = UIApplication.sharedApplication().delegate as! AppDelegate
     let dateFormat = NSDateFormatter()
     let priceFormat = NSNumberFormatter()
-    let finaliseMsg = UIAlertController(title: "CONFIRM", message: "Finish /delete orders?", preferredStyle: .Alert)
+    let finaliseMsg = UIAlertController(title: "CONFIRM", message: "Finish / delete orders?", preferredStyle: .Alert)
     
     var nameArray = [UILabel]()
     

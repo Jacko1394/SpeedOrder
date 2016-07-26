@@ -98,7 +98,8 @@ class EditScreen: UIViewController, UITableViewDataSource, UITableViewDelegate, 
                         }
                     }
                     //Adds the ingredients added by user:
-                    for(var i = 0; i < app.order.foods[app.indexPath!.row].ingredients2!.count; ++i) {
+                    //for(var i = 0; i < app.order.foods[app.indexPath!.row].ingredients2!.count; ++i) {
+                    for i in 0 ..< app.order.foods[app.indexPath!.row].ingredients2!.count {
                         if(app.order.foods[app.indexPath!.row].ingredients2![i].extra.rawValue == cell.index + 1) {
                             if(app.order.foods[app.indexPath!.row].ingredients2![i].minus) {
                                 cell.itemButton.backgroundColor = UIColor(red: 1, green: 130/255, blue: 130/255, alpha: 1)
@@ -119,7 +120,8 @@ class EditScreen: UIViewController, UITableViewDataSource, UITableViewDelegate, 
                     }
                 }
                 //Adds the ingredients added by user:
-                for(var i = 0; i < app.order.foods[app.indexPath!.row].ingredients.count; ++i) {
+                //for(var i = 0; i < app.order.foods[app.indexPath!.row].ingredients.count; ++i) {
+                for i in 0 ..< app.order.foods[app.indexPath!.row].ingredients.count {
                     if(app.order.foods[app.indexPath!.row].ingredients[i].extra.rawValue == cell.index + 1) {
                         if(app.order.foods[app.indexPath!.row].ingredients[i].minus) {
                             cell.itemButton.backgroundColor = UIColor(red: 1, green: 130/255, blue: 130/255, alpha: 1)
@@ -201,10 +203,12 @@ class EditScreen: UIViewController, UITableViewDataSource, UITableViewDelegate, 
     
     //CONTROLLER:
     override func viewDidLoad() {
-        var singleTap = UITapGestureRecognizer(target: self, action: "leftPushed")
+        //var singleTap = UITapGestureRecognizer(target: self, action: "leftPushed")
+        var singleTap = UITapGestureRecognizer(target: self, action: #selector(EditScreen.leftPushed))
         leftText.addGestureRecognizer(singleTap)
-        singleTap = UITapGestureRecognizer(target: self, action: "rightPushed")
+        singleTap = UITapGestureRecognizer(target: self, action: #selector(EditScreen.rightPushed))
         rightText.addGestureRecognizer(singleTap)
+        
         orderList.layer.cornerRadius = 25
         leftText.layer.cornerRadius = 5
         rightText.layer.cornerRadius = 5

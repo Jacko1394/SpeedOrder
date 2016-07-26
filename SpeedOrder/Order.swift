@@ -240,7 +240,7 @@ class Food: NSObject, NSCoding {
                     found = true
                     break
                 }
-                ++x
+                x += 1
             }
             if(found) {ingredients[x] = extra}
             else {ingredients.append(extra)}

@@ -30,7 +30,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         var pastas = [Food]()
         var others = [Food]()
         
-        for (var i = 0; i < order.foods.count; ++i) {
+        //for (var i = 0; i < order.foods.count; ++i) {
+        for i in 0 ..< order.foods.count {
             switch order.foods[i].item.rawValue {
             case 1...17, 35: pizzas.append(order.foods[i])
             case 18...25: pastas.append(order.foods[i])
