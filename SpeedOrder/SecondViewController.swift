@@ -7,10 +7,10 @@ import UIKit
 
 class SecondViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    let app = UIApplication.sharedApplication().delegate as! AppDelegate
-    let dateFormat = NSDateFormatter()
-    let priceFormat = NSNumberFormatter()
-    let finaliseMsg = UIAlertController(title: "CONFIRM", message: "Finish / delete orders?", preferredStyle: .Alert)
+    let app = UIApplication.shared.delegate as! AppDelegate
+    let dateFormat = DateFormatter()
+    let priceFormat = NumberFormatter()
+    let finaliseMsg = UIAlertController(title: "CONFIRM", message: "Finish / delete orders?", preferredStyle: .alert)
     
     var nameArray = [UILabel]()
     
@@ -20,50 +20,50 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
     @IBOutlet weak var endLabel1: UILabel!
     @IBOutlet weak var endLabel2: UILabel!
     
-    @IBAction func endOrders(sender: AnyObject) {self.presentViewController(finaliseMsg, animated: true, completion: nil)}
+    @IBAction func endOrders(_ sender: AnyObject) {self.present(finaliseMsg, animated: true, completion: nil)}
     
     //TableView FUNCTIONS::::::::
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {return app.orderList.count}
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = ordersList.dequeueReusableCellWithIdentifier("orderCell") as! ordersCell
-        cell.orderNumLabel.text! = "\(app.orderList[indexPath.row].orderNumber)."
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {return app.orderList.count}
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = ordersList.dequeueReusableCell(withIdentifier: "orderCell") as! ordersCell
+        cell.orderNumLabel.text! = "\(app.orderList[(indexPath as NSIndexPath).row].orderNumber)."
         
-        cell.nameLabel.text! = app.orderList[indexPath.row].name
-        if(app.orderList[indexPath.row].delivery) {
+        cell.nameLabel.text! = app.orderList[(indexPath as NSIndexPath).row].name
+        if(app.orderList[(indexPath as NSIndexPath).row].delivery) {
             cell.nameLabel.shadowColor = UIColor(red: 1, green: 200/255, blue: 0, alpha: 1)
             cell.nameLabel.shadowOffset = CGSize(width: 2, height: -2)
         } else {
-            cell.nameLabel.shadowColor = .clearColor()
+            cell.nameLabel.shadowColor = .clear
             cell.nameLabel.shadowOffset = CGSize(width: 0, height: 0)
         }
         
-        cell.numItemsLabel.text! = "\(app.orderList[indexPath.row].foods.count)"
-        cell.timeLabel.text! = "\(dateFormat.stringFromDate(app.orderList[indexPath.row].timeDate))"
-        cell.priceLabel.text! = "\(priceFormat.stringFromNumber(app.orderList[indexPath.row].priceTotal)!)"
+        cell.numItemsLabel.text! = "\(app.orderList[(indexPath as NSIndexPath).row].foods.count)"
+        cell.timeLabel.text! = "\(dateFormat.string(from: app.orderList[(indexPath as NSIndexPath).row].timeDate as Date))"
+        //cell.priceLabel.text! = "\(priceFormat.string(from: NSNumber(app.orderList[(indexPath as NSIndexPath).row].priceTotal))!)"
         
         nameArray.append(cell.nameLabel)
         
         return cell
     }
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        app.order = app.orderList[indexPath.row]
-        app.editingOrder = indexPath.row
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        app.order = app.orderList[(indexPath as NSIndexPath).row]
+        app.editingOrder = (indexPath as NSIndexPath).row
         tabBarController?.selectedIndex = 0
     }
     
     //CONTROLLER
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         ordersList.reloadData()
         orderNumberLabel.text! = "[\(app.orderList.count)]"
     }
     override func viewDidLoad() {
-        priceFormat.numberStyle = .CurrencyStyle
-        dateFormat.timeStyle = .NoStyle
-        dateFormat.dateStyle = .FullStyle
-        orderDateLabel.text! = "ORDERS: \(dateFormat.stringFromDate(NSDate()))"
-        dateFormat.timeStyle = .ShortStyle
-        dateFormat.dateStyle = .NoStyle
-        dateFormat.timeStyle = .ShortStyle
+        priceFormat.numberStyle = .currency
+        dateFormat.timeStyle = .none
+        dateFormat.dateStyle = .full
+        orderDateLabel.text! = "ORDERS: \(dateFormat.string(from: Date()))"
+        dateFormat.timeStyle = .short
+        dateFormat.dateStyle = .none
+        dateFormat.timeStyle = .short
         ordersList.layer.cornerRadius = 30
         ordersList.clipsToBounds = true
         endLabel1.layer.cornerRadius = 15
@@ -72,7 +72,7 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
         endLabel2.clipsToBounds = true
         
         //Setup Cancel Message:
-        finaliseMsg.addAction(UIAlertAction(title: "OK", style: .Default, handler: {
+        finaliseMsg.addAction(UIAlertAction(title: "OK", style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
             self.app.printer.printSummary(self.app.orderList)
             self.app.orderList = [Order]()
@@ -82,7 +82,7 @@ class SecondViewController: UIViewController, UITableViewDataSource, UITableView
             self.orderNumberLabel.text! = "[\(self.app.orderList.count)]"
         }))
         
-        finaliseMsg.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        finaliseMsg.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
     }
     
     override func didReceiveMemoryWarning() {app.saveOrders()}

@@ -6,20 +6,20 @@
 //List of menu items:
 enum MenuItems: Int {
     //Pizzas:
-    case Capricciosa = 1; case Americana = 2; case Margerita = 3
-    case NedKelly = 4; case Napoletana = 5; case Hawaiian = 6
-    case Marinara = 7; case Vegetarian = 8; case Mexican = 9
-    case Aussie = 10; case Peperoni = 11; case GoonawarraSpecial = 12
-    case Chicken = 13; case MeatLovers = 14; case JohnySpecial = 15
-    case Mushroom = 16; case RJSpecial = 17
+    case capricciosa = 1; case americana = 2; case margerita = 3
+    case nedKelly = 4; case napoletana = 5; case hawaiian = 6
+    case marinara = 7; case vegetarian = 8; case mexican = 9
+    case aussie = 10; case peperoni = 11; case goonawarraSpecial = 12
+    case chicken = 13; case meatLovers = 14; case johnySpecial = 15
+    case mushroom = 16; case rjSpecial = 17
     //Pastas:
-    case Lasagna = 18; case SpagBolognese = 19; case SpagMarinara = 20
-    case FettuccineCarb = 21; case Ravioli = 22; case Tortelloni = 23
-    case Gnocchi = 24; case Vege_Pasta = 25
+    case lasagna = 18; case spagBolognese = 19; case spagMarinara = 20
+    case fettuccineCarb = 21; case ravioli = 22; case tortelloni = 23
+    case gnocchi = 24; case vege_Pasta = 25
     //Other:
-    case ChickSchnit = 26; case ChickParma = 27; case Can = 28
-    case med = 29; case large = 30; case Gelati = 31
-    case Salad = 32; case Chips = 33; case GB = 34; case GPizza = 35
+    case chickSchnit = 26; case chickParma = 27; case can = 28
+    case med = 29; case large = 30; case gelati = 31
+    case salad = 32; case chips = 33; case gb = 34; case gPizza = 35
     
     //Array:
     static let itemString = ["ERROR", "Capricciosa", "Americana",
@@ -35,14 +35,14 @@ enum MenuItems: Int {
 //List of pizza extras:
 enum Ingredients: Int {
     //Extra ingredients:
-    case TomatoSauce = 1; case BBQSauce = 2; case Ham = 3
-    case Cheese = 4; case Mushroom = 5; case Onion = 6
-    case Capsicum = 7; case Pineapple = 8; case Bacon = 9
-    case Olive = 10; case KOlive = 11; case Salami = 12
-    case Chicken = 13; case Beef = 14; case Prawn = 15
-    case Garlic = 16; case Anchovie = 17; case Oregano = 18
-    case Chilli = 19; case Egg = 20; case Clams = 21
-    case GF = 22; case BBQBase = 23; case ThinBase = 24
+    case tomatoSauce = 1; case bbqSauce = 2; case ham = 3
+    case cheese = 4; case mushroom = 5; case onion = 6
+    case capsicum = 7; case pineapple = 8; case bacon = 9
+    case olive = 10; case kOlive = 11; case salami = 12
+    case chicken = 13; case beef = 14; case prawn = 15
+    case garlic = 16; case anchovie = 17; case oregano = 18
+    case chilli = 19; case egg = 20; case clams = 21
+    case gf = 22; case bbqBase = 23; case thinBase = 24
     //case UNKNOWNONE = 25; case UNKNOWNTWO = 26
     
     //Array of stings of each extra:
@@ -54,53 +54,53 @@ enum Ingredients: Int {
     
     static let recipe = [
         //ERROR:
-        [.TomatoSauce],
+        [.tomatoSauce],
         //1 - Capricciosa:
-        [.TomatoSauce, .Cheese, .Ham, .Mushroom, .Olive, .Anchovie],
+        [.tomatoSauce, .cheese, .ham, .mushroom, .olive, .anchovie],
         //2 - Americana:
-        [.TomatoSauce, .Cheese, .Ham, .Salami, .Onion],
+        [.tomatoSauce, .cheese, .ham, .salami, .onion],
         //3 - Margerita:
-        [.TomatoSauce, .Cheese, .Oregano],
+        [.tomatoSauce, .cheese, .oregano],
         //4 - Ned Kelly:
-        [.TomatoSauce, .Cheese, .Ham, .Beef, .Onion],
+        [.tomatoSauce, .cheese, .ham, .beef, .onion],
         //5 - Napoletana:
-        [.TomatoSauce, .Cheese, .Anchovie, .Garlic],
+        [.tomatoSauce, .cheese, .anchovie, .garlic],
         //6 - Hawaiin:
-        [.TomatoSauce, .Cheese, .Ham, .Pineapple],
+        [.tomatoSauce, .cheese, .ham, .pineapple],
         //7 - Marinara:
-        [.TomatoSauce, .Cheese, .Clams, .Prawn, .Garlic],
+        [.tomatoSauce, .cheese, .clams, .prawn, .garlic],
         //8 - Vegetarian:
-        [.TomatoSauce, .Cheese, .Mushroom, .Onion, .Capsicum, .Olive],
+        [.tomatoSauce, .cheese, .mushroom, .onion, .capsicum, .olive],
         //9 - Mexican:
-        [.TomatoSauce, .Cheese, .Ham, .Capsicum, .Salami, .Olive],
+        [.tomatoSauce, .cheese, .ham, .capsicum, .salami, .olive],
         //10 - Aussie:
-        [.TomatoSauce, .Cheese, .Ham, .Bacon, .Egg, .Onion],
+        [.tomatoSauce, .cheese, .ham, .bacon, .egg, .onion],
         //11 - Peperoni:
-        [.TomatoSauce, .Cheese, .Salami, .Chilli],
+        [.tomatoSauce, .cheese, .salami, .chilli],
         //12 - Goonawarra Special:
-        [.TomatoSauce, .Cheese, .Ham, .Mushroom, .Onion, .Capsicum, .Salami, .Olive, .Pineapple],
+        [.tomatoSauce, .cheese, .ham, .mushroom, .onion, .capsicum, .salami, .olive, .pineapple],
         //13 - Chicken:
-        [.TomatoSauce, .Cheese, .Ham, .Chicken, .Mushroom],
+        [.tomatoSauce, .cheese, .ham, .chicken, .mushroom],
         //14 - Meat Lovers:
-        [.TomatoSauce, .Cheese, .Ham, .Bacon, .Beef, .Salami],
+        [.tomatoSauce, .cheese, .ham, .bacon, .beef, .salami],
         //15 - Johny's Special:
-        [.TomatoSauce, .Cheese, .Ham, .Mushroom, .Onion, .Salami, .Prawn, .Olive, .Garlic],
+        [.tomatoSauce, .cheese, .ham, .mushroom, .onion, .salami, .prawn, .olive, .garlic],
         //16 - Mushroom Pizza:
-        [.TomatoSauce, .Cheese, .Mushroom],
+        [.tomatoSauce, .cheese, .mushroom],
         //17 - RJ Special:
-        [.TomatoSauce, .Cheese, .Beef, .Salami, .Bacon, .Chicken, .BBQSauce],
+        [.tomatoSauce, .cheese, .beef, .salami, .bacon, .chicken, .bbqSauce],
         //Pastas:
-        [.TomatoSauce, .Cheese],
-        [.TomatoSauce],
-        [.Prawn, .Garlic],
-        [.Mushroom, .Bacon, .Garlic, .Oregano],
-        [.TomatoSauce],
-        [.TomatoSauce],
-        [.TomatoSauce],
-        [.TomatoSauce, .Mushroom, .Onion, .Capsicum],
+        [.tomatoSauce, .cheese],
+        [.tomatoSauce],
+        [.prawn, .garlic],
+        [.mushroom, .bacon, .garlic, .oregano],
+        [.tomatoSauce],
+        [.tomatoSauce],
+        [.tomatoSauce],
+        [.tomatoSauce, .mushroom, .onion, .capsicum],
         //Chicken items:
-        [.TomatoSauce],
-        [TomatoSauce, .Cheese]
+        [.tomatoSauce],
+        [tomatoSauce, .cheese]
     ]
 }
 
@@ -117,7 +117,7 @@ enum Size: String {
 //Structure for extras/ingredients:
 class Extra: NSObject, NSCoding {
     var minus = false
-    var extra: Ingredients = .BBQSauce
+    var extra: Ingredients = .bbqSauce
     
     //Initializer:
     init(extra: Ingredients, minus: Bool) {
@@ -125,12 +125,12 @@ class Extra: NSObject, NSCoding {
         self.extra = extra
     }
     required init(coder aDecoder: NSCoder) {
-        minus = aDecoder.decodeObjectForKey("minus") as! Bool
-        extra = Ingredients(rawValue: aDecoder.decodeObjectForKey("extra") as! Int)!
+        minus = aDecoder.decodeObject(forKey: "minus") as! Bool
+        extra = Ingredients(rawValue: aDecoder.decodeObject(forKey: "extra") as! Int)!
     }
-    func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(minus, forKey: "minus")
-        aCoder.encodeObject(extra.rawValue, forKey: "extra")
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(minus, forKey: "minus")
+        aCoder.encode(extra.rawValue, forKey: "extra")
     }
     
     
@@ -139,7 +139,7 @@ class Extra: NSObject, NSCoding {
 class Food: NSObject, NSCoding {
     var price: Double = 0
     var size: Size? = .Small
-    var item: MenuItems = .Capricciosa
+    var item: MenuItems = .capricciosa
     var item2: MenuItems? = nil
     var foodNotes: String? = nil
     var foodNotes2: String? = nil
@@ -149,31 +149,31 @@ class Food: NSObject, NSCoding {
     
     override init() {}
     required init(coder aDecoder: NSCoder) {
-        if(aDecoder.decodeObjectForKey("size") as? String == nil) {size = nil}
-        else {size = Size(rawValue: aDecoder.decodeObjectForKey("size") as! String)}
-        if(aDecoder.decodeObjectForKey("item2") as? Int == nil) {item2 = nil}
-        else {item2 = MenuItems(rawValue: (aDecoder.decodeObjectForKey("item2") as? Int)!)}
-        price = aDecoder.decodeDoubleForKey("price")
-        item = MenuItems(rawValue: (aDecoder.decodeObjectForKey("item") as! Int))!
-        foodNotes = aDecoder.decodeObjectForKey("foodNotes") as? String
-        foodNotes2 = aDecoder.decodeObjectForKey("foodNotes2") as? String
-        halfhalf = aDecoder.decodeObjectForKey("halfhalf") as! Bool
-        ingredients = aDecoder.decodeObjectForKey("ingredients") as! [Extra]
-        ingredients2 = aDecoder.decodeObjectForKey("ingredients2") as? [Extra]
+        if(aDecoder.decodeObject(forKey: "size") as? String == nil) {size = nil}
+        else {size = Size(rawValue: aDecoder.decodeObject(forKey: "size") as! String)}
+        if(aDecoder.decodeObject(forKey: "item2") as? Int == nil) {item2 = nil}
+        else {item2 = MenuItems(rawValue: (aDecoder.decodeObject(forKey: "item2") as? Int)!)}
+        price = aDecoder.decodeDouble(forKey: "price")
+        item = MenuItems(rawValue: (aDecoder.decodeObject(forKey: "item") as! Int))!
+        foodNotes = aDecoder.decodeObject(forKey: "foodNotes") as? String
+        foodNotes2 = aDecoder.decodeObject(forKey: "foodNotes2") as? String
+        halfhalf = aDecoder.decodeObject(forKey: "halfhalf") as! Bool
+        ingredients = aDecoder.decodeObject(forKey: "ingredients") as! [Extra]
+        ingredients2 = aDecoder.decodeObject(forKey: "ingredients2") as? [Extra]
 
     }
-    func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeDouble(price, forKey: "price")
-        aCoder.encodeObject(size?.rawValue, forKey: "size")
-        aCoder.encodeObject(item.rawValue, forKey: "item")
-        aCoder.encodeObject(item2?.rawValue, forKey: "item2")
-        aCoder.encodeObject(foodNotes, forKey: "foodNotes")
-        aCoder.encodeObject(foodNotes2, forKey: "foodNotes2")
-        aCoder.encodeObject(halfhalf, forKey: "halfhalf")
-        aCoder.encodeObject(ingredients, forKey: "ingredients")
-        aCoder.encodeObject(ingredients2, forKey: "ingredients2")
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(price, forKey: "price")
+        aCoder.encode(size?.rawValue, forKey: "size")
+        aCoder.encode(item.rawValue, forKey: "item")
+        aCoder.encode(item2?.rawValue, forKey: "item2")
+        aCoder.encode(foodNotes, forKey: "foodNotes")
+        aCoder.encode(foodNotes2, forKey: "foodNotes2")
+        aCoder.encode(halfhalf, forKey: "halfhalf")
+        aCoder.encode(ingredients, forKey: "ingredients")
+        aCoder.encode(ingredients2, forKey: "ingredients2")
     }
-    func copyWithZone(zone: NSZone) -> AnyObject {
+    func copyWithZone(_ zone: NSZone?) -> AnyObject {
         let newFood = Food()
         newFood.price = self.price
         newFood.size = self.size
@@ -196,7 +196,7 @@ class Food: NSObject, NSCoding {
     }
     
     //Add a new extra to the food item:
-    func addNewExtra (extra: Extra, doingHalf: Bool) {
+    func addNewExtra (_ extra: Extra, doingHalf: Bool) {
         var found = false
         var x = 0
         var NO = [Extra]()
@@ -227,8 +227,8 @@ class Food: NSObject, NSCoding {
                 if(e.minus) {NO.append(e)}
                 else {plus.append(e)}
             }
-            ordered.appendContentsOf(NO)
-            ordered.appendContentsOf(plus)
+            ordered.append(contentsOf: NO)
+            ordered.append(contentsOf: plus)
             ingredients2 = ordered
         }
         
@@ -250,13 +250,13 @@ class Food: NSObject, NSCoding {
                 if(e.minus) {NO.append(e)}
                 else {plus.append(e)}
             }
-            ordered.appendContentsOf(NO)
-            ordered.appendContentsOf(plus)
+            ordered.append(contentsOf: NO)
+            ordered.append(contentsOf: plus)
             ingredients = ordered
             
         }
         //Make sure GF pizzas are large
-        if(extra.extra == .GF) {size = .Large}
+        if(extra.extra == .gf) {size = .Large}
     }
     
     //Prints item desc:
@@ -267,7 +267,7 @@ class Food: NSObject, NSCoding {
     }
     
     //Prints extras:
-    func extras(halfhalf: Bool, asComma: Bool) -> String {
+    func extras(_ halfhalf: Bool, asComma: Bool) -> String {
         var text = ""
         //Handles which half to print:
         if(halfhalf) { //Details for second half:
@@ -334,11 +334,11 @@ class Food: NSObject, NSCoding {
         case 1...17:
             
             var sizeOrGF = size!.rawValue
-            for i in ingredients {if(i.extra == .GF) {sizeOrGF = "GF"}}
+            for i in ingredients {if(i.extra == .gf) {sizeOrGF = "GF"}}
             
             if(halfhalf) {
-                for i in ingredients2! {if(i.extra == .GF) {sizeOrGF = "GF"}}
-                if(item2! == .GPizza) {
+                for i in ingredients2! {if(i.extra == .gf) {sizeOrGF = "GF"}}
+                if(item2! == .gPizza) {
                     return sizeOrGF + "-\(item.rawValue)/Garlic"
                 } else {
                     return sizeOrGF + "-\(item.rawValue)/\(item2!.rawValue)"
@@ -361,7 +361,7 @@ class Food: NSObject, NSCoding {
             }
         case 35:
             if(halfhalf) {
-                if(item2! == .GPizza) {
+                if(item2! == .gPizza) {
                     return size!.rawValue + "-Garlic/Garlic"
                 } else {
                     return size!.rawValue + "-Garlic/\(item2!.rawValue)"
@@ -388,7 +388,7 @@ class Food: NSObject, NSCoding {
             
             //Adds first half/single pizza extras:
             for e in ingredients {
-                if(e.extra == .GF) {
+                if(e.extra == .gf) {
                     price += 2
                 }
                 else {
@@ -406,7 +406,7 @@ class Food: NSObject, NSCoding {
             if(halfhalf) {
                 price += 1.5
                 for e in ingredients2! {
-                    if(e.extra == .GF) {
+                    if(e.extra == .gf) {
                         price += 2
                     }
                     else {
@@ -457,7 +457,7 @@ class Food: NSObject, NSCoding {
             }
             //Adds first half/single pizza extras:
             for e in ingredients {
-                if(e.extra == .GF) {
+                if(e.extra == .gf) {
                     price += 2
                 }
                 else {
@@ -477,7 +477,7 @@ class Food: NSObject, NSCoding {
             if(halfhalf) {
                 price += 1.5
                 for e in ingredients2! {
-                    if(e.extra == .GF) {
+                    if(e.extra == .gf) {
                         price += 2
                     }
                     else {
@@ -500,7 +500,7 @@ class Food: NSObject, NSCoding {
 class Order: NSObject, NSCoding {
     var orderNumber = 1
     var name = ""
-    var timeDate = NSDate()
+    var timeDate = Date()
     var delivery = false
     var phoneNumber: String? = nil
     
@@ -508,7 +508,7 @@ class Order: NSObject, NSCoding {
     var foods = [Food]()
     
     //Adds new food item to the order:
-    func addItem(item: Food) {
+    func addItem(_ item: Food) {
         priceTotal += item.price
         foods.append(item)
     }
@@ -523,23 +523,23 @@ class Order: NSObject, NSCoding {
     override init() {}
     
     required init(coder aDecoder: NSCoder) {
-        foods = aDecoder.decodeObjectForKey("foods") as! [Food]
-        orderNumber = aDecoder.decodeObjectForKey("orderNumber") as! Int
-        name = aDecoder.decodeObjectForKey("name") as! String
-        timeDate = aDecoder.decodeObjectForKey("timeDate") as! NSDate
-        delivery = aDecoder.decodeObjectForKey("delivery") as! Bool
-        phoneNumber = aDecoder.decodeObjectForKey("phoneNumber") as! String?
-        priceTotal = aDecoder.decodeDoubleForKey("priceTotal")
+        foods = aDecoder.decodeObject(forKey: "foods") as! [Food]
+        orderNumber = aDecoder.decodeObject(forKey: "orderNumber") as! Int
+        name = aDecoder.decodeObject(forKey: "name") as! String
+        timeDate = aDecoder.decodeObject(forKey: "timeDate") as! Date
+        delivery = aDecoder.decodeObject(forKey: "delivery") as! Bool
+        phoneNumber = aDecoder.decodeObject(forKey: "phoneNumber") as! String?
+        priceTotal = aDecoder.decodeDouble(forKey: "priceTotal")
     }
     
-    func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(foods, forKey: "foods")
-        aCoder.encodeObject(orderNumber, forKey: "orderNumber")
-        aCoder.encodeObject(name, forKey: "name")
-        aCoder.encodeObject(timeDate, forKey: "timeDate")
-        aCoder.encodeObject(delivery, forKey: "delivery")
-        aCoder.encodeObject(phoneNumber, forKey: "phoneNumber")
-        aCoder.encodeDouble(priceTotal, forKey: "priceTotal")
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(foods, forKey: "foods")
+        aCoder.encode(orderNumber, forKey: "orderNumber")
+        aCoder.encode(name, forKey: "name")
+        aCoder.encode(timeDate, forKey: "timeDate")
+        aCoder.encode(delivery, forKey: "delivery")
+        aCoder.encode(phoneNumber, forKey: "phoneNumber")
+        aCoder.encode(priceTotal, forKey: "priceTotal")
     }
     
     

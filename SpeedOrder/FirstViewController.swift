@@ -8,13 +8,13 @@ import UIKit
 class FirstViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UITextFieldDelegate, firstView {
     
     //Reference to AppDelegate:
-    let app = UIApplication.sharedApplication().delegate as! AppDelegate
+    let app = UIApplication.shared.delegate as! AppDelegate
     //AlertVIEW:::
-    let drinkSelector = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+    let drinkSelector = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
     let drinks = ["Coke", "Diet Coke", "Coke Zero", "Solo", "Lemonade", "Sunkist"]
-    let errorMessage = UIAlertController(title: "ERROR", message: "Input customer details!", preferredStyle: .Alert)
-    let cancelMessage = UIAlertController(title: "CONFIRM", message: "Clear current order?", preferredStyle: .Alert)
-    let priceFormatter = NSNumberFormatter()
+    let errorMessage = UIAlertController(title: "ERROR", message: "Input customer details!", preferredStyle: .alert)
+    let cancelMessage = UIAlertController(title: "CONFIRM", message: "Clear current order?", preferredStyle: .alert)
+    let priceFormatter = NumberFormatter()
     
     var allowPrint = [false, true]
     var indexes = [String]()
@@ -53,31 +53,31 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     
     //MY PROTOCOLS:
-    func removeItem(index: Int) {
+    func removeItem(_ index: Int) {
         app.removeFood(index)
         orderList.reloadData()
         numOfItems.text! = "\(app.order.foods.count)"
-        priceTotal.text! = "\(priceFormatter.stringFromNumber(app.order.priceTotal)!)"
+        //priceTotal.text! = "\(priceFormatter.string(from: NSNumber(app.order.priceTotal))!)"
         if(app.order.foods.count == 0) {app.useIndex = false}
     }
-    func addMenuItem(index: Int, sender: AnyObject) {
+    func addMenuItem(_ index: Int, sender: AnyObject) {
         //Which button got pushed?:
         switch index {
         case 1...17, 35: //Pizza
             //Turn on selecter on, get it's size:
-            sizeSelector.enabled = true
+            sizeSelector.isEnabled = true
             let newSize = Size(rawValue: Size.sizeFromIndex[sizeSelector.selectedSegmentIndex])!
             app.newFood.size = newSize
             //Handles half-half pizzas, set new food:
             if(app.newFood.halfhalf) {app.newFood.item2 = MenuItems(rawValue: index)!}
             else {app.newFood.item = MenuItems(rawValue: index)!}
-            if(newSize == .Small) {halfhalfButton.enabled = false}
-            else {halfhalfButton.enabled = true}
+            if(newSize == .Small) {halfhalfButton.isEnabled = false}
+            else {halfhalfButton.isEnabled = true}
             
             app.newFood.foodNotes = nil
         case 28...30:
             //Turns off selecter, sets size nil:
-            sizeSelector.enabled = false
+            sizeSelector.isEnabled = false
             app.newFood.size = nil
             //Handles half-half pizzas:
             if(app.newFood.halfhalf) {
@@ -85,19 +85,19 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
                 app.newFood.halfhalf = false
             }
             //Sets new food item:
-            halfhalfButton.enabled = false
+            halfhalfButton.isEnabled = false
             app.newFood.item = MenuItems(rawValue: index)!
             
             //Display drink selection options:
             if let popoverController = drinkSelector.popoverPresentationController {
                 popoverController.sourceView = sender as? UIView
                 popoverController.sourceRect = sender.bounds
-                self.presentViewController(drinkSelector, animated: false, completion: nil)
+                self.present(drinkSelector, animated: false, completion: nil)
             }
             
         case 18...27, 32...34: //Pasta/chicken
             //Turns off selecter, sets size nil:
-            sizeSelector.enabled = false
+            sizeSelector.isEnabled = false
             app.newFood.size = nil
             //Handles half-half pizzas:
             if(app.newFood.halfhalf) {
@@ -106,11 +106,11 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
             }
             //Sets new food item:
             app.newFood.item = MenuItems(rawValue: index)!
-            halfhalfButton.enabled = false
+            halfhalfButton.isEnabled = false
             app.newFood.foodNotes = nil
         case 31: //Gelati
             //Turns selecter on, get it's size:
-            sizeSelector.enabled = true
+            sizeSelector.isEnabled = true
             //app.newFood.size = app.sizeFromIndex(sizeSelector.selectedSegmentIndex)
             app.newFood.size = Size(rawValue: Size.sizeFromIndex[sizeSelector.selectedSegmentIndex])
             //Handles half-half pizzas:
@@ -120,7 +120,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
             }
             //Sets new food item:
             app.newFood.item = MenuItems(rawValue: index)!
-            halfhalfButton.enabled = false
+            halfhalfButton.isEnabled = false
             app.newFood.foodNotes = nil
         default: print("add menu item error")
         }
@@ -130,14 +130,14 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     //Delivey switch:
-    @IBAction func switchToDelivery(sender: AnyObject) {
-        if(deliverySwitch.on) {
+    @IBAction func switchToDelivery(_ sender: AnyObject) {
+        if(deliverySwitch.isOn) {
             nameNumLabel.text! = "Address:"
             nameTextField.placeholder! = "Address"
             app.order.delivery = true
             if(phoneTextField.text! == "") {allowPrint[1] = false}
             if(arrayAddressText.count > 1) {
-                addressList.hidden = false
+                addressList.isHidden = false
                 indexes = searchAddress(arrayAddressText[arrayAddressText.count - 1])
                 addressList.reloadData()
             }
@@ -147,47 +147,47 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
             nameTextField.placeholder! = "Name / number"
             app.order.delivery = false
             allowPrint[1] = true
-            addressList.hidden = true
+            addressList.isHidden = true
         }
         app.order.calcOrderPrice()
-        priceTotal.text! = "\(priceFormatter.stringFromNumber(app.order.priceTotal)!)"
+        //priceTotal.text! = "\(priceFormatter.string(from: NSNumber(app.order.priceTotal))!)"
         
     }
     
     //When editting text fields begin:
-    @IBAction func nameTextEdit(sender: AnyObject) {allowPrint[0] = true}
-    @IBAction func phoneTextEdit(sender: AnyObject) {allowPrint[1] = true}
+    @IBAction func nameTextEdit(_ sender: AnyObject) {allowPrint[0] = true}
+    @IBAction func phoneTextEdit(_ sender: AnyObject) {allowPrint[1] = true}
     
     //Adds an item to the current order:
-    @IBAction func onAddClick(sender: AnyObject) {
+    @IBAction func onAddClick(_ sender: AnyObject) {
         app.updateOrder()
         numOfItems.text! = "\(app.order.foods.count)"
-        priceTotal.text! = "\(priceFormatter.stringFromNumber(app.order.priceTotal)!)"
+        //priceTotal.text! = "\(priceFormatter.string(from: NSNumber(app.order.priceTotal))!)"
         orderList.reloadData()
     }
     
     //Update when different size is selected:
-    @IBAction func sizeChanged(sender: AnyObject) {
+    @IBAction func sizeChanged(_ sender: AnyObject) {
         let newSize = Size(rawValue: Size.sizeFromIndex[sizeSelector.selectedSegmentIndex])
         app.newFood.size = newSize
         
         if(newSize == .Small) {
-            halfhalfButton.enabled = false
+            halfhalfButton.isEnabled = false
             if(app.newFood.halfhalf) {
                 app.newFood.ingredients2 = nil
                 app.newFood.halfhalf = false
             }
         } else {
-            if(app.newFood.item == .Gelati) {halfhalfButton.enabled = false}
-            else {halfhalfButton.enabled = true}
+            if(app.newFood.item == .gelati) {halfhalfButton.isEnabled = false}
+            else {halfhalfButton.isEnabled = true}
         }
         newItemLabel.text! = app.newFood.asString()
     }
     
     //Finalises new order:
-    @IBAction func makeOrder(sender: AnyObject) {
+    @IBAction func makeOrder(_ sender: AnyObject) {
         if(app.order.foods.count == 0 || allowPrint != [true, true]) {
-            self.presentViewController(errorMessage, animated: true, completion: nil)
+            self.present(errorMessage, animated: true, completion: nil)
         } else {
             if(app.order.delivery) {app.order.phoneNumber = phoneTextField.text!}
             else {app.order.phoneNumber = nil}
@@ -201,85 +201,85 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     //When return on keyboard is pressed, hide it:
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
-        addressList.hidden = true
+        addressList.isHidden = true
         return true
     }
     //Hides address list if keyboard is put away (not return):
-    func textFieldDidEndEditing(textField: UITextField) {addressList.hidden = true}
+    func textFieldDidEndEditing(_ textField: UITextField) {addressList.isHidden = true}
     
     //When text is added to the address/name field:
-    @IBAction func textFieldChanged(sender: AnyObject) {
+    @IBAction func textFieldChanged(_ sender: AnyObject) {
         arrayAddressText = nameTextField.text!.characters.split{$0 == " "}.map(String.init)
-        if(deliverySwitch.on && arrayAddressText.count > 1) {
-            addressList.hidden = false
+        if(deliverySwitch.isOn && arrayAddressText.count > 1) {
+            addressList.isHidden = false
             indexes = searchAddress(arrayAddressText[arrayAddressText.count - 1])
             addressList.reloadData()
         }
-        if(arrayAddressText.count == 1) {addressList.hidden = true}
+        if(arrayAddressText.count == 1) {addressList.isHidden = true}
     }
     
     //Half-half button is pushed:
-    @IBAction func halfHalfButton(sender: AnyObject) {newItemLabel.text! = app.halfHalfFood()}
+    @IBAction func halfHalfButton(_ sender: AnyObject) {newItemLabel.text! = app.halfHalfFood()}
     
     //Clear/cancel button is pushed:
-    @IBAction func clearCancel(sender: AnyObject) {self.presentViewController(cancelMessage, animated: true, completion: nil)}
+    @IBAction func clearCancel(_ sender: AnyObject) {self.present(cancelMessage, animated: true, completion: nil)}
     
     //CollectionView FUNCTIONS:
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {return 35}
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = menuList.dequeueReusableCellWithReuseIdentifier("menuItem", forIndexPath: indexPath) as! myMenuCell
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {return 35}
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = menuList.dequeueReusableCell(withReuseIdentifier: "menuItem", for: indexPath) as! myMenuCell
         
-        cell.index = indexPath.row + 1
+        cell.index = (indexPath as NSIndexPath).row + 1
         cell.delegate = self
-        cell.button.setTitle("\(cell.index)", forState: .Normal)
+        cell.button.setTitle("\(cell.index)", for: UIControlState())
         cell.itemLabel.text! = MenuItems.itemString[cell.index]
         
         switch cell.index {
         case 1...17, 28...30: break //do nothing
-        case 18...25, 33...35: cell.button.setTitleColor(UIColor.orangeColor(), forState: .Normal)
-        case 26...27: cell.button.setTitleColor(UIColor.redColor(), forState: .Normal)
-        case 31...32: cell.button.setTitleColor(UIColor.greenColor(), forState: .Normal)
+        case 18...25, 33...35: cell.button.setTitleColor(UIColor.orange, for: UIControlState())
+        case 26...27: cell.button.setTitleColor(UIColor.red, for: UIControlState())
+        case 31...32: cell.button.setTitleColor(UIColor.green, for: UIControlState())
         default: print("menu item menu error")
         }
         return cell
     }
     
     //TableView FUNCTIONS:
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if(tableView == orderList) {
             //Orderlist TableView:
-            let cell = orderList.dequeueReusableCellWithIdentifier("pizzaItem") as! myCell
+            let cell = orderList.dequeueReusableCell(withIdentifier: "pizzaItem") as! myCell
             
-            cell.index = indexPath.row
+            cell.index = (indexPath as NSIndexPath).row
             cell.delegate = self
-            cell.priceLabel.text! = "\(priceFormatter.stringFromNumber(app.order.foods[indexPath.row].price)!)"
-            cell.pizzaLabel.text! = app.order.foods[indexPath.row].asString()
+            //cell.priceLabel.text! = "\(priceFormatter.string(from: NSNumber(app.order.foods[(indexPath as NSIndexPath).row].price))!)"
+            cell.pizzaLabel.text! = app.order.foods[(indexPath as NSIndexPath).row].asString()
             cell.indexLabel.text! = "\(cell.index + 1)."
-            if(app.order.foods[indexPath.row].item.rawValue < 18) {
-                cell.pizzaDesc.text! = app.order.foods[indexPath.row].desc()
+            if(app.order.foods[(indexPath as NSIndexPath).row].item.rawValue < 18) {
+                cell.pizzaDesc.text! = app.order.foods[(indexPath as NSIndexPath).row].desc()
             } else {cell.pizzaDesc.text! = ""}
             return cell
             
         //Address TableView:
         } else {
-            let cell = addressList.dequeueReusableCellWithIdentifier("addressItem") as! addressListCell
+            let cell = addressList.dequeueReusableCell(withIdentifier: "addressItem") as! addressListCell
             var text = ""
             //for(var i = 0; i < arrayAddressText.count - 1; ++i) {}
             for i in 0 ..< arrayAddressText.count - 1 {
                 text += arrayAddressText[i] + " "
             }
             
-            cell.addressLabel.text! = text + indexes[indexPath.row]
+            cell.addressLabel.text! = text + indexes[(indexPath as NSIndexPath).row]
             return cell
         }
     }
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if(tableView == orderList) {return app.order.foods.count}
         else {return indexes.count}
     }
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if(tableView == orderList) {
             app.useIndex = true
             app.indexPath = indexPath
@@ -287,13 +287,13 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         } else {
             var text = ""
             for t in arrayAddressText {if(t != arrayAddressText[arrayAddressText.count - 1]) {text += t + " "}}
-            text += indexes[indexPath.row]
+            text += indexes[(indexPath as NSIndexPath).row]
             nameTextField.text! = text
         }
     }
     
     //Searches thru address array based on string, returns found index numbers:
-    func searchAddress(searchFor: String) -> [String]{
+    func searchAddress(_ searchFor: String) -> [String]{
         let max = searchFor.characters.count
         let place = ["", " (Bulla)", " (Wildwood)", " (Diggers)"]
         var foundIndexArray = [[Int](), [Int](), [Int](), [Int]()]
@@ -309,7 +309,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
                         var newString = ""
                         //for(var i = 0; i < max; ++i) {newString += "\(tempArray[i])"}
                         for i in 0 ..< max {newString += "\(tempArray[i])"}
-                        if(newString.caseInsensitiveCompare(searchFor) == NSComparisonResult.OrderedSame) {foundIndexArray[x].append(index)}
+                        if(newString.caseInsensitiveCompare(searchFor) == ComparisonResult.orderedSame) {foundIndexArray[x].append(index)}
                 }
                 index += 1
             }
@@ -325,7 +325,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     //Resets order page UI:
     func pageReset() {
-        deliverySwitch.on = false
+        deliverySwitch.isOn = false
         nameNumLabel.text! = "Name:"
         nameTextField.placeholder! = "Name / number"
         nameTextField.text! = ""
@@ -339,26 +339,26 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     //CONTROLLER:
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         app.useIndex = false
         //Did we load an old order?:
         if(app.editingOrder != nil) {
             nameTextField.text! = app.order.name
-            if(app.order.delivery) {deliverySwitch.on = true}
-            else {deliverySwitch.on = false}
+            if(app.order.delivery) {deliverySwitch.isOn = true}
+            else {deliverySwitch.isOn = false}
             if(app.order.phoneNumber != nil) {phoneTextField.text! = app.order.phoneNumber!}
             else {phoneTextField.text! = ""}
             allowPrint = [true, true]
         }
         //Update UI:
         app.order.calcOrderPrice()
-        priceTotal.text! = "\(priceFormatter.stringFromNumber(app.order.priceTotal)!)"
+        //priceTotal.text! = "\(priceFormatter.string(from: NSNumber(app.order.priceTotal))!)"
         orderNumberLabel.text! = "[\(app.order.orderNumber)]"
         orderList.reloadData()
         
     }
     override func viewDidLoad() {
-        priceFormatter.numberStyle = .CurrencyStyle
+        priceFormatter.numberStyle = .currency
         orderList.layer.cornerRadius = 25
         orderList.clipsToBounds = true
         addressList.layer.cornerRadius = 30
@@ -371,24 +371,24 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         placeOrderButton.clipsToBounds = true
         
         //Setup for Drink Selector:
-        drinkSelector.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        drinkSelector.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         for d in drinks {
-            drinkSelector.addAction(UIAlertAction(title: d, style: .Default, handler: {
+            drinkSelector.addAction(UIAlertAction(title: d, style: .default, handler: {
                 (alert: UIAlertAction!) -> Void in
                 self.app.newFood.foodNotes = d
                 self.newItemLabel.text! = self.app.newFood.asString()
             }))
         }
         //Setup Error Message:
-        errorMessage.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+        errorMessage.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         //Setup Cancel Message:
-        cancelMessage.addAction(UIAlertAction(title: "OK", style: .Default, handler: {
+        cancelMessage.addAction(UIAlertAction(title: "OK", style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
             self.app.resetOrder()
             self.pageReset()
         }))
         
-        cancelMessage.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+        cancelMessage.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
     }
     override func didReceiveMemoryWarning() {app.saveOrders()}

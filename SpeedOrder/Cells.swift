@@ -7,10 +7,10 @@ import UIKit
 
 //Delegate protocol definitions:
 protocol firstView {
-    func removeItem(index: Int)
-    func addMenuItem(index: Int, sender: AnyObject)
+    func removeItem(_ index: Int)
+    func addMenuItem(_ index: Int, sender: AnyObject)
 }
-protocol editView {func addExtraItem(index: Int)}
+protocol editView {func addExtraItem(_ index: Int)}
 
 //FirstViewController customcells::::::::::::::::::::::::::::::::
 //Current order list cell:
@@ -22,7 +22,7 @@ class myCell: UITableViewCell {
     @IBOutlet weak var pizzaDesc: UILabel!
     @IBOutlet weak var indexLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
-    @IBAction func removeButton(sender: AnyObject) {delegate?.removeItem(index)}
+    @IBAction func removeButton(_ sender: AnyObject) {delegate?.removeItem(index)}
 }
 
 //Cell of menuitem select:
@@ -32,7 +32,7 @@ class myMenuCell: UICollectionViewCell {
     
     @IBOutlet weak var itemLabel: UILabel!
     @IBOutlet weak var button: UIButton!
-    @IBAction func menuItemSelect(sender: AnyObject) {delegate?.addMenuItem(index, sender: sender)}
+    @IBAction func menuItemSelect(_ sender: AnyObject) {delegate?.addMenuItem(index, sender: sender)}
 }
 
 //Cell of the address list:
@@ -55,7 +55,7 @@ class extrasCell: UICollectionViewCell {
     var index = 0
     
     @IBOutlet weak var itemButton: UIButton!
-    @IBAction func buttonPress(sender: AnyObject) {delegate?.addExtraItem(index)}
+    @IBAction func buttonPress(_ sender: AnyObject) {delegate?.addExtraItem(index)}
 }
 
 //SecondViewController custom cells:

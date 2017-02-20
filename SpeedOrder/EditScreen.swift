@@ -7,9 +7,9 @@ import UIKit
 
 class EditScreen: UIViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, editView {
     //Reference to the appdelegate:
-    let app = UIApplication.sharedApplication().delegate as! AppDelegate
-    let priceFormatter = NSNumberFormatter()
-    let customExtra = UIAlertController(title: "Instructions:", message: "Insert custom instructions:", preferredStyle: .Alert)
+    let app = UIApplication.shared.delegate as! AppDelegate
+    let priceFormatter = NumberFormatter()
+    let customExtra = UIAlertController(title: "Instructions:", message: "Insert custom instructions:", preferredStyle: .alert)
     
     //Extras and order list views:
     @IBOutlet weak var orderList: UITableView!
@@ -35,22 +35,22 @@ class EditScreen: UIViewController, UITableViewDataSource, UITableViewDelegate, 
     var tempCustomText = UITextField()
 
     //When extr button is pushed:
-    func addExtraItem(index: Int) {
+    func addExtraItem(_ index: Int) {
         if(app.order.foods.count != 0 && app.useIndex) {
             switch index {
             case 0...23:
                 let newExtra = Extra(extra: Ingredients(rawValue: index + 1)!, minus: minusing)
-                app.order.foods[app.indexPath!.row].addNewExtra(newExtra, doingHalf: doingHalf)
-                app.order.foods[app.indexPath!.row].calcPrice()
+                app.order.foods[(app.indexPath! as NSIndexPath).row].addNewExtra(newExtra, doingHalf: doingHalf)
+                app.order.foods[(app.indexPath! as NSIndexPath).row].calcPrice()
                 checkView()
             case 25: //Clear item:
-                app.order.foods[app.indexPath!.row].clearExtras()
+                app.order.foods[(app.indexPath! as NSIndexPath).row].clearExtras()
                 checkView()
             case 26:
                 minusing = !minusing
-                if(minusing) {extraCells[26].itemButton.backgroundColor = .darkGrayColor()}
-                else {extraCells[26].itemButton.backgroundColor = .lightGrayColor()}
-            case 27: self.presentViewController(customExtra, animated: true, completion: nil)
+                if(minusing) {extraCells[26].itemButton.backgroundColor = .darkGray}
+                else {extraCells[26].itemButton.backgroundColor = .lightGray}
+            case 27: self.present(customExtra, animated: true, completion: nil)
             default: print("extra item selection error")
             }
         }
@@ -59,39 +59,39 @@ class EditScreen: UIViewController, UITableViewDataSource, UITableViewDelegate, 
     //Updates the edit screen UI information:
     func checkView() {
         //Handles half-half optioning:
-        if(app.order.foods[app.indexPath!.row].halfhalf) {
-            rightText.text! = app.order.foods[app.indexPath!.row].extras(true, asComma: false)
-            rightText.hidden = false
-            rightTitle.text! = MenuItems.itemString[app.order.foods[app.indexPath!.row].item2!.rawValue]
-            rightTitle.hidden = false
+        if(app.order.foods[(app.indexPath! as NSIndexPath).row].halfhalf) {
+            rightText.text! = app.order.foods[(app.indexPath! as NSIndexPath).row].extras(true, asComma: false)
+            rightText.isHidden = false
+            rightTitle.text! = MenuItems.itemString[app.order.foods[(app.indexPath! as NSIndexPath).row].item2!.rawValue]
+            rightTitle.isHidden = false
         } else { //Solo pizza:
-            rightText.hidden = true
-            rightTitle.hidden = true
-            leftText.backgroundColor = UIColor.lightGrayColor()
-            rightText.backgroundColor = UIColor.groupTableViewBackgroundColor()
+            rightText.isHidden = true
+            rightTitle.isHidden = true
+            leftText.backgroundColor = UIColor.lightGray
+            rightText.backgroundColor = UIColor.groupTableViewBackground
         }
         
         //Left/solo pizza deets:
-        leftText.text! = app.order.foods[app.indexPath!.row].extras(false, asComma: false)
-        leftTitle.text! = MenuItems.itemString[app.order.foods[app.indexPath!.row].item.rawValue]
-        mainItemLabel.text! = app.order.foods[app.indexPath!.row].asString()
+        leftText.text! = app.order.foods[(app.indexPath! as NSIndexPath).row].extras(false, asComma: false)
+        leftTitle.text! = MenuItems.itemString[app.order.foods[(app.indexPath! as NSIndexPath).row].item.rawValue]
+        mainItemLabel.text! = app.order.foods[(app.indexPath! as NSIndexPath).row].asString()
         
         //Loop thru cell menu buttons:
         for cell in extraCells {
             //Resets each button color:
-            if(cell.index < 25) {cell.itemButton.backgroundColor = .clearColor()}
+            if(cell.index < 25) {cell.itemButton.backgroundColor = .clear}
             else {
                 if(cell.index == 26) {
-                    if(minusing) {cell.itemButton.backgroundColor = .darkGrayColor()}
-                    else {cell.itemButton.backgroundColor = .lightGrayColor()}
-                } else {cell.itemButton.backgroundColor = .lightGrayColor()}
+                    if(minusing) {cell.itemButton.backgroundColor = .darkGray}
+                    else {cell.itemButton.backgroundColor = .lightGray}
+                } else {cell.itemButton.backgroundColor = .lightGray}
             }
             
             //Which half to colour?:
             if(doingHalf) {
                 //Loops thru the ingredients in the current pizza (half)
-                if(app.order.foods[app.indexPath!.row].item2!.rawValue < 28) {
-                    for i in Ingredients.recipe[app.order.foods[app.indexPath!.row].item2!.rawValue] {
+                if(app.order.foods[(app.indexPath! as NSIndexPath).row].item2!.rawValue < 28) {
+                    for i in Ingredients.recipe[app.order.foods[(app.indexPath! as NSIndexPath).row].item2!.rawValue] {
                         //Changes colour if it's in the pizza:
                         if(cell.index + 1 == i.rawValue) {
                             cell.itemButton.backgroundColor = UIColor(red: 140/255, green: 1, blue: 125/255, alpha: 1)
@@ -99,9 +99,9 @@ class EditScreen: UIViewController, UITableViewDataSource, UITableViewDelegate, 
                     }
                     //Adds the ingredients added by user:
                     //for(var i = 0; i < app.order.foods[app.indexPath!.row].ingredients2!.count; ++i) {
-                    for i in 0 ..< app.order.foods[app.indexPath!.row].ingredients2!.count {
-                        if(app.order.foods[app.indexPath!.row].ingredients2![i].extra.rawValue == cell.index + 1) {
-                            if(app.order.foods[app.indexPath!.row].ingredients2![i].minus) {
+                    for i in 0 ..< app.order.foods[(app.indexPath! as NSIndexPath).row].ingredients2!.count {
+                        if(app.order.foods[(app.indexPath! as NSIndexPath).row].ingredients2![i].extra.rawValue == cell.index + 1) {
+                            if(app.order.foods[(app.indexPath! as NSIndexPath).row].ingredients2![i].minus) {
                                 cell.itemButton.backgroundColor = UIColor(red: 1, green: 130/255, blue: 130/255, alpha: 1)
                             } else {
                                 cell.itemButton.backgroundColor = UIColor(red: 140/255, green: 1, blue: 125/255, alpha: 1)
@@ -111,8 +111,8 @@ class EditScreen: UIViewController, UITableViewDataSource, UITableViewDelegate, 
                 }
             } else {
                 //Loops thru the ingredients in the current pizza
-                if(app.order.foods[app.indexPath!.row].item.rawValue < 28) {
-                    for i in Ingredients.recipe[app.order.foods[app.indexPath!.row].item.rawValue] {
+                if(app.order.foods[(app.indexPath! as NSIndexPath).row].item.rawValue < 28) {
+                    for i in Ingredients.recipe[app.order.foods[(app.indexPath! as NSIndexPath).row].item.rawValue] {
                         //Changes colour if it's in the pizza:
                         if(cell.index + 1 == i.rawValue) {
                             cell.itemButton.backgroundColor = UIColor(red: 140/255, green: 1, blue: 125/255, alpha: 1)
@@ -121,9 +121,9 @@ class EditScreen: UIViewController, UITableViewDataSource, UITableViewDelegate, 
                 }
                 //Adds the ingredients added by user:
                 //for(var i = 0; i < app.order.foods[app.indexPath!.row].ingredients.count; ++i) {
-                for i in 0 ..< app.order.foods[app.indexPath!.row].ingredients.count {
-                    if(app.order.foods[app.indexPath!.row].ingredients[i].extra.rawValue == cell.index + 1) {
-                        if(app.order.foods[app.indexPath!.row].ingredients[i].minus) {
+                for i in 0 ..< app.order.foods[(app.indexPath! as NSIndexPath).row].ingredients.count {
+                    if(app.order.foods[(app.indexPath! as NSIndexPath).row].ingredients[i].extra.rawValue == cell.index + 1) {
+                        if(app.order.foods[(app.indexPath! as NSIndexPath).row].ingredients[i].minus) {
                             cell.itemButton.backgroundColor = UIColor(red: 1, green: 130/255, blue: 130/255, alpha: 1)
                         } else {
                             cell.itemButton.backgroundColor = UIColor(red: 140/255, green: 1, blue: 125/255, alpha: 1)
@@ -133,49 +133,49 @@ class EditScreen: UIViewController, UITableViewDataSource, UITableViewDelegate, 
             }
         }
         
-        orderList.reloadRowsAtIndexPaths([app.indexPath!], withRowAnimation: .None)
-        orderList.selectRowAtIndexPath(app.indexPath, animated: animate, scrollPosition: .Middle)
+        orderList.reloadRows(at: [app.indexPath! as IndexPath], with: .none)
+        orderList.selectRow(at: app.indexPath as IndexPath?, animated: animate, scrollPosition: .middle)
         animate = false
     }
     
     //TableView FUNCTIONS:
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = orderList.dequeueReusableCellWithIdentifier("editItem") as! myOrderCell
-        cell.itemLabel.text! = app.order.foods[indexPath.row].asString()
-        cell.indexLabel.text! = "\(indexPath.row + 1)."
-        cell.commaDescLabel.text! = app.order.foods[indexPath.row].extras(false, asComma: true)
-        cell.priceLabel.text! = "\(priceFormatter.stringFromNumber(app.order.foods[indexPath.row].price)!)"
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = orderList.dequeueReusableCell(withIdentifier: "editItem") as! myOrderCell
+        cell.itemLabel.text! = app.order.foods[(indexPath as NSIndexPath).row].asString()
+        cell.indexLabel.text! = "\((indexPath as NSIndexPath).row + 1)."
+        cell.commaDescLabel.text! = app.order.foods[(indexPath as NSIndexPath).row].extras(false, asComma: true)
+        //cell.priceLabel.text! = "\(priceFormatter.string(from: NSNumber(app.order.foods[(indexPath as NSIndexPath).row].price))!)"
         
         //itemCells.append(cell)
         return cell
     }
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {return app.order.foods.count}
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {return app.order.foods.count}
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         app.useIndex = true
         doingHalf = false
         minusing = false
         app.indexPath = indexPath
-        leftText.backgroundColor = .lightGrayColor()
-        rightText.backgroundColor = .groupTableViewBackgroundColor()
+        leftText.backgroundColor = .lightGray
+        rightText.backgroundColor = .groupTableViewBackground
         animate = true
         checkView()
     }
     
     //CollectionView FUNCTIONS:
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {return 28}
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {return 28}
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = extrasList.dequeueReusableCellWithReuseIdentifier("extraItem", forIndexPath: indexPath) as! extrasCell
-        cell.index = indexPath.row
+        let cell = extrasList.dequeueReusableCell(withReuseIdentifier: "extraItem", for: indexPath) as! extrasCell
+        cell.index = (indexPath as NSIndexPath).row
         cell.delegate = self
-        cell.itemButton.setTitle(Ingredients.extraString[cell.index + 1], forState: .Normal)
-        cell.itemButton.setTitleColor(.blackColor(), forState: .Normal)
+        cell.itemButton.setTitle(Ingredients.extraString[cell.index + 1], for: UIControlState())
+        cell.itemButton.setTitleColor(.black, for: UIControlState())
         cell.itemButton.layer.cornerRadius = 10
         cell.itemButton.clipsToBounds = true
         
-        if(indexPath.row > 24) {
-            cell.itemButton.backgroundColor = .lightGrayColor()
-            if(indexPath.row == 27 && app.useIndex) {checkView()}
+        if((indexPath as NSIndexPath).row > 24) {
+            cell.itemButton.backgroundColor = .lightGray
+            if((indexPath as NSIndexPath).row == 27 && app.useIndex) {checkView()}
         }
         extraCells.append(cell)
         
@@ -185,17 +185,17 @@ class EditScreen: UIViewController, UITableViewDataSource, UITableViewDelegate, 
     
     //Left right buttons for half-half:
     func leftPushed() {
-        if(app.useIndex && app.order.foods[app.indexPath!.row].halfhalf) {
-            leftText.backgroundColor = .lightGrayColor()
-            rightText.backgroundColor = .groupTableViewBackgroundColor()
+        if(app.useIndex && app.order.foods[(app.indexPath! as NSIndexPath).row].halfhalf) {
+            leftText.backgroundColor = .lightGray
+            rightText.backgroundColor = .groupTableViewBackground
             doingHalf = false
             checkView()
         }
     }
     func rightPushed() {
-        if(app.useIndex && app.order.foods[app.indexPath!.row].halfhalf) {
-            leftText.backgroundColor = .groupTableViewBackgroundColor()
-            rightText.backgroundColor = .lightGrayColor()
+        if(app.useIndex && app.order.foods[(app.indexPath! as NSIndexPath).row].halfhalf) {
+            leftText.backgroundColor = .groupTableViewBackground
+            rightText.backgroundColor = .lightGray
             doingHalf = true
             checkView()
         }
@@ -217,39 +217,39 @@ class EditScreen: UIViewController, UITableViewDataSource, UITableViewDelegate, 
         orderList.clipsToBounds = true
         orderList.clipsToBounds = true
         extrasList.clipsToBounds = true
-        priceFormatter.numberStyle = .CurrencyStyle
+        priceFormatter.numberStyle = .currency
         
-        customExtra.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
-        customExtra.addTextFieldWithConfigurationHandler({(text: UITextField!) in self.tempCustomText = text})
-        customExtra.addAction(UIAlertAction(title: "OK", style: .Default, handler: {(alert: UIAlertAction!) in
+        customExtra.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        customExtra.addTextField(configurationHandler: {(text: UITextField!) in self.tempCustomText = text})
+        customExtra.addAction(UIAlertAction(title: "OK", style: .default, handler: {(alert: UIAlertAction!) in
             if(self.doingHalf) {
-                self.app.order.foods[self.app.indexPath!.row].foodNotes2 = self.tempCustomText.text!
+                self.app.order.foods[(self.app.indexPath! as NSIndexPath).row].foodNotes2 = self.tempCustomText.text!
             } else {
-                self.app.order.foods[self.app.indexPath!.row].foodNotes = self.tempCustomText.text!
+                self.app.order.foods[(self.app.indexPath! as NSIndexPath).row].foodNotes = self.tempCustomText.text!
             }
             self.checkView()
         }))
     }
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         doingHalf = false
         minusing = false
-        leftText.backgroundColor = .lightGrayColor()
-        rightText.backgroundColor = .groupTableViewBackgroundColor()
+        leftText.backgroundColor = .lightGray
+        rightText.backgroundColor = .groupTableViewBackground
         orderList.reloadData()
         if(app.useIndex) {
-            orderList.selectRowAtIndexPath(app.indexPath, animated: true, scrollPosition: .Middle)
+            orderList.selectRow(at: app.indexPath as IndexPath?, animated: true, scrollPosition: .middle)
             checkView()
         } else {
             //Reset button colours:
             for cell in extraCells {
-                if(cell.index > 24) {cell.itemButton.backgroundColor = .lightGrayColor()}
-                else {cell.itemButton.backgroundColor = .clearColor()}
+                if(cell.index > 24) {cell.itemButton.backgroundColor = .lightGray}
+                else {cell.itemButton.backgroundColor = .clear}
             }
             mainItemLabel.text! = "..."
             leftTitle.text! = "..."
             leftText.text! = "+"
-            rightTitle.hidden = true
-            rightText.hidden = true
+            rightTitle.isHidden = true
+            rightText.isHidden = true
         }
         orderLabel.text! = "ORDER: [\(app.order.orderNumber)]"
         

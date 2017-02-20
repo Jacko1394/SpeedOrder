@@ -11,7 +11,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let printer = Printer()
     
     var window: UIWindow?
-    var indexPath: NSIndexPath? = nil
+    var indexPath: IndexPath? = nil
     var useIndex = false
     var editingOrder: Int? = nil
     
@@ -41,14 +41,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         //Updates item list to the new order:
         order.foods = [Food]()
-        order.foods.appendContentsOf(pizzas)
-        order.foods.appendContentsOf(pastas)
-        order.foods.appendContentsOf(others)
+        order.foods.append(contentsOf: pizzas)
+        order.foods.append(contentsOf: pastas)
+        order.foods.append(contentsOf: others)
     }
-    func makeOrder(name: String) {
+    func makeOrder(_ name: String) {
         //Finalize order:
         order.name = name
-        order.timeDate = NSDate()
+        order.timeDate = Date()
         //Printer order:
         editingOrder = nil
         printer.printOrder(order)
@@ -60,9 +60,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         order = Order()
         order.orderNumber = orderList.count + 1
     }
-    func removeFood(index: Int) {
+    func removeFood(_ index: Int) {
         order.priceTotal -= order.foods[index].price
-        order.foods.removeAtIndex(index)
+        order.foods.remove(at: index)
     }
     func halfHalfFood() -> String {
         if(newFood.halfhalf) {
@@ -73,18 +73,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if(newFood.size != .Small) {
                 newFood.halfhalf = true
                 newFood.ingredients2 = [Extra]()
-                newFood.item2 = .Capricciosa
+                newFood.item2 = .capricciosa
             }
         }
         return newFood.asString()
     }
     
     //Application state handling functions:
-    func applicationDidEnterBackground(application: UIApplication) {
+    func applicationDidEnterBackground(_ application: UIApplication) {
         saveOrders()
         print("APP: Background (saved)")
     }
-    func applicationDidBecomeActive(application: UIApplication) {
+    func applicationDidBecomeActive(_ application: UIApplication) {
         orderList = loadOrders()
         order.orderNumber = orderList.count + 1
         print("APP: Active (loaded)")
@@ -92,13 +92,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     //Save and load order functions:
     func saveOrders(){
-        NSUserDefaults.standardUserDefaults().setObject(NSKeyedArchiver.archivedDataWithRootObject(orderList), forKey: "orders")
+        UserDefaults.standard.set(NSKeyedArchiver.archivedData(withRootObject: orderList), forKey: "orders")
     }
     func loadOrders() -> [Order]{
-        let orderData = NSUserDefaults.standardUserDefaults().objectForKey("orders") as? NSData
+        let orderData = UserDefaults.standard.object(forKey: "orders") as? Data
         
         if let orderData = orderData {
-            let orderList = NSKeyedUnarchiver.unarchiveObjectWithData(orderData) as? [Order]
+            let orderList = NSKeyedUnarchiver.unarchiveObject(with: orderData) as? [Order]
             if let orderList = orderList {return orderList}
         }
         print("ERROR: Bunk order load")
