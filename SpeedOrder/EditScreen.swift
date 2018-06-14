@@ -184,7 +184,7 @@ class EditScreen: UIViewController, UITableViewDataSource, UITableViewDelegate, 
     }
     
     //Left right buttons for half-half:
-    func leftPushed() {
+    @objc func leftPushed() {
         if(app.useIndex && app.order.foods[(app.indexPath! as NSIndexPath).row].halfhalf) {
             leftText.backgroundColor = .lightGray
             rightText.backgroundColor = .groupTableViewBackground
@@ -192,7 +192,7 @@ class EditScreen: UIViewController, UITableViewDataSource, UITableViewDelegate, 
             checkView()
         }
     }
-    func rightPushed() {
+    @objc func rightPushed() {
         if(app.useIndex && app.order.foods[(app.indexPath! as NSIndexPath).row].halfhalf) {
             leftText.backgroundColor = .groupTableViewBackground
             rightText.backgroundColor = .lightGray

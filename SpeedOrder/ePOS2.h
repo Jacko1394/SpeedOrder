@@ -1,7 +1,7 @@
 //
-//  Copyright(C) Seiko Epson Corp 2015. All rights reserved.
+//  Copyright (C) Seiko Epson Corporation 2016 - 2017. All rights reserved.
 //
-//  ePOS SDK Ver.2.0.0
+//  ePOS SDK Ver.2.7.0
 
 #ifdef __OBJC__
 #import <Foundation/Foundation.h>
@@ -137,6 +137,24 @@ enum Epos2CallbackCode : int {
     EPOS2_CODE_PRINTING,
     EPOS2_CODE_ERR_SPOOLER,
     EPOS2_CODE_ERR_BATTERY_LOW,
+    EPOS2_CODE_ERR_TOO_MANY_REQUESTS,
+    EPOS2_CODE_ERR_REQUEST_ENTITY_TOO_LARGE,
+    EPOS2_CODE_CANCELED,
+    EPOS2_CODE_ERR_NO_MICR_DATA,
+    EPOS2_CODE_ERR_ILLEGAL_LENGTH,
+    EPOS2_CODE_ERR_NO_MAGNETIC_DATA,
+    EPOS2_CODE_ERR_RECOGNITION,
+    EPOS2_CODE_ERR_READ,
+    EPOS2_CODE_ERR_NOISE_DETECTED,
+    EPOS2_CODE_ERR_PAPER_JAM,
+    EPOS2_CODE_ERR_PAPER_PULLED_OUT,
+    EPOS2_CODE_ERR_CANCEL_FAILED,
+    EPOS2_CODE_ERR_PAPER_TYPE,
+    EPOS2_CODE_ERR_WAIT_INSERTION,
+    EPOS2_CODE_ERR_ILLEGAL,
+    EPOS2_CODE_ERR_INSERTED,
+    EPOS2_CODE_ERR_WAIT_REMOVAL,
+    EPOS2_CODE_ERR_DEVICE_BUSY,
     EPOS2_CODE_ERR_FAILURE = 255
 };
 
@@ -148,6 +166,7 @@ enum Epos2PrinterSeries : int {
     EPOS2_TM_P60II,
     EPOS2_TM_P80,
     EPOS2_TM_T20,
+    EPOS2_TM_T60,
     EPOS2_TM_T70,
     EPOS2_TM_T81,
     EPOS2_TM_T82,
@@ -163,6 +182,7 @@ enum Epos2PrinterSeries : int {
 enum Epos2DisplayModel : int {
     EPOS2_DM_D30 = 0,
     EPOS2_DM_D110,
+	EPOS2_DM_D210,
 };
 
 enum Epos2ModelLang : int {
@@ -213,6 +233,7 @@ enum Epos2AutoRecoverError : int {
     EPOS2_MOTOR_OVERHEAT,
     EPOS2_BATTERY_OVERHEAT,
     EPOS2_WRONG_PAPER,
+    EPOS2_COVER_OPEN,
 };
 
 enum Epos2BatteryLevel : int {
@@ -223,6 +244,23 @@ enum Epos2BatteryLevel : int {
     EPOS2_BATTERY_LEVEL_4,
     EPOS2_BATTERY_LEVEL_5,
     EPOS2_BATTERY_LEVEL_6,
+};
+
+enum Epos2InsertionWaiting : int {
+    EPOS2_INSERTION_WAIT_SLIP = 0,
+    EPOS2_INSERTION_WAIT_VALIDATION,
+    EPOS2_INSERTION_WAIT_MICR,
+    EPOS2_INSERTION_WAIT_NONE,
+};
+
+enum Epos2RemovalWaiting : int {
+    EPOS2_REMOVAL_WAIT_PAPER = 0,
+    EPOS2_REMOVAL_WAIT_NONE,
+};
+
+enum Epos2StatusSlipPaper : int {
+    EPOS2_SLIP_PAPER_OK = 0,
+    EPOS2_SLIP_PAPER_EMPTY,
 };
 
 enum Epos2StatusEvent : int {
@@ -238,6 +276,14 @@ enum Epos2StatusEvent : int {
     EPOS2_EVENT_DRAWER_LOW,
     EPOS2_EVENT_BATTERY_ENOUGH,
     EPOS2_EVENT_BATTERY_EMPTY,
+    EPOS2_EVENT_INSERTION_WAIT_SLIP,
+    EPOS2_EVENT_INSERTION_WAIT_VALIDATION,
+    EPOS2_EVENT_INSERTION_WAIT_MICR,
+    EPOS2_EVENT_INSERTION_WAIT_NONE,
+    EPOS2_EVENT_REMOVAL_WAIT_PAPER,
+    EPOS2_EVENT_REMOVAL_WAIT_NONE,
+    EPOS2_EVENT_SLIP_PAPER_OK,
+    EPOS2_EVENT_SLIP_PAPER_EMPTY,
 };
 
 enum Epos2ConnectionEvent : int {
@@ -249,6 +295,7 @@ enum Epos2ConnectionEvent : int {
 enum Epos2DeviceType : int {
     EPOS2_TYPE_ALL = 0,
     EPOS2_TYPE_PRINTER,
+    EPOS2_TYPE_HYBRID_PRINTER,
     EPOS2_TYPE_DISPLAY,
     EPOS2_TYPE_KEYBOARD,
     EPOS2_TYPE_SCANNER,
@@ -289,7 +336,8 @@ enum Epos2Color : int {
 
 enum Epos2Mode : int {
     EPOS2_MODE_MONO = 0,
-    EPOS2_MODE_GRAY16
+    EPOS2_MODE_GRAY16,
+    EPOS2_MODE_MONO_HIGH_DENSITY
 };
 
 enum Epos2Halftone : int {
@@ -438,6 +486,27 @@ enum Epos2Layout : int {
     EPOS2_LAYOUT_LABEL_BM
 };
 
+enum Epos2Papertype : int {
+    EPOS2_PAPER_TYPE_RECEIPT = 0,
+    EPOS2_PAPER_TYPE_SLIP,
+    EPOS2_PAPER_TYPE_ENDORSE,
+    EPOS2_PAPER_TYPE_VALIDATION
+};
+
+enum Epos2MicrFont : int {
+    EPOS2_MICR_FONT_E13B = 0,
+    EPOS2_MICR_FONT_CMC7
+};
+
+enum Epos2HybridPrinterMethod : int {
+    EPOS2_METHOD_WAITINSERTION = 0,
+    EPOS2_METHOD_SENDDATA,
+    EPOS2_METHOD_CANCELINSERTION,
+    EPOS2_METHOD_EJECTPAPER,
+    EPOS2_METHOD_READMICRDATA,
+    EPOS2_METHOD_CLEANMICRREADER
+};
+
 enum Epos2Scroll : int {
     EPOS2_SCROLL_OVERWRITE = 0,
     EPOS2_SCROLL_VERTICAL,
@@ -485,7 +554,9 @@ enum Epos2LogLevel : int {
 
 #ifdef __OBJC__
 
+@class Epos2CommonPrinter;
 @class Epos2Printer;
+@class Epos2HybridPrinter;
 @class Epos2LineDisplay;
 @class Epos2Keyboard;
 @class Epos2BarcodeScanner;
@@ -509,6 +580,23 @@ enum Epos2LogLevel : int {
 @property(readonly, getter=getBatteryLevel) int batteryLevel;
 @end
 
+@interface Epos2HybridPrinterStatusInfo : NSObject
+@property(readonly, getter=getConnection) int connection;
+@property(readonly, getter=getOnline) int online;
+@property(readonly, getter=getCoverOpen) int coverOpen;
+@property(readonly, getter=getPaper) int paper;
+@property(readonly, getter=getPaperFeed) int paperFeed;
+@property(readonly, getter=getPanelSwitch) int panelSwitch;
+@property(readonly, getter=getWaitOnline) int waitOnline;
+@property(readonly, getter=getDrawer) int drawer;
+@property(readonly, getter=getErrorStatus) int errorStatus;
+@property(readonly, getter=getAutoRecoverError) int autoRecoverError;
+@property(readonly, getter=getInsertionWaiting) int insertionWaiting;
+@property(readonly, getter=getRemovalWaiting) int removalWaiting;
+@property(readonly, getter=getSlipPaper) int slipPaper;
+@end
+
+
 @protocol Epos2ConnectionDelegate <NSObject>
 @required
 - (void) onConnection:(id)deviceObj eventType:(int)eventType;
@@ -522,6 +610,16 @@ enum Epos2LogLevel : int {
 @protocol Epos2PtrReceiveDelegate <NSObject>
 @required
 - (void) onPtrReceive:(Epos2Printer *)printerObj code:(int)code status:(Epos2PrinterStatusInfo *)status printJobId:(NSString *)printJobId;
+@end
+
+@protocol Epos2HybdStatusChangeDelegate <NSObject>
+@required
+- (void) onHybdStatusChange:(Epos2HybridPrinter *)hybridPrinterObj eventType:(int)eventType;
+@end
+
+@protocol Epos2HybdReceiveDelegate <NSObject>
+@required
+- (void) onHybdReceive:(Epos2HybridPrinter *)hybridPrinterObj method:(int)method code:(int)code micrData:(NSString *)micrData status:(Epos2HybridPrinterStatusInfo *)status;
 @end
 
 @protocol Epos2DispReceiveDelegate <NSObject>
@@ -569,20 +667,13 @@ enum Epos2LogLevel : int {
 - (void) onDiscovery:(Epos2DeviceInfo *)deviceInfo;
 @end
 
-@interface Epos2Printer : NSObject
+@interface Epos2CommonPrinter : NSObject
 
-- (id) initWithPrinterSeries:(int)printerSeries lang:(int)lang;
-- (void) dealloc;
-
-- (int) connect:(NSString *) target timeout:(long)timeout;
-- (int) disconnect;
 - (int) startMonitor;
 - (int) stopMonitor;
-- (Epos2PrinterStatusInfo *) getStatus;
-- (int) sendData:(long)timeout;
 - (int) beginTransaction;
 - (int) endTransaction;
-- (int) requestPrintJobStatus:(NSString *)printJobId;
+
 - (int) clearCommandBuffer;
 - (int) addTextAlign:(int)align;
 - (int) addLineSpace:(long)linespc;
@@ -600,9 +691,6 @@ enum Epos2LogLevel : int {
 - (int) addLogo:(long)key1 key2:(long)key2;
 - (int) addBarcode:(NSString *)data type:(int)type hri:(int)hri font:(int)font width:(long)width height:(long)height;
 - (int) addSymbol:(NSString *)data type:(int)type level:(int)level width:(long)width height:(long)height size:(long)size;
-- (int) addHLine:(long)x1 x2:(long)x2 style:(int)style;
-- (int) addVLineBegin:(long)x style:(int)style lineId:(int *)lineId;
-- (int) addVLineEnd:(int)lineId;
 - (int) addPageBegin;
 - (int) addPageEnd;
 - (int) addPageArea:(long)x y:(long)y width:(long)width height:(long)height;
@@ -612,21 +700,70 @@ enum Epos2LogLevel : int {
 - (int) addPageRectangle:(long)x1 y1:(long)y1 x2:(long)x2 y2:(long)y2 style:(int)style;
 - (int) addCut:(int)type;
 - (int) addPulse:(int)drawer time:(int)time;
+- (int) addCommand:(NSData *)data;
+
+- (int) forceRecover:(long)timeout;
+- (int) forcePulse:(int)drawer pulseTime:(int)time timeout:(long)timeout;
+- (int) forceReset:(long)timeout;
+
+@end
+
+@interface Epos2Printer : Epos2CommonPrinter
+
+- (id) initWithPrinterSeries:(int)printerSeries lang:(int)lang;
+- (void) dealloc;
+
+- (int) connect:(NSString *) target timeout:(long)timeout;
+- (int) disconnect;
+- (Epos2PrinterStatusInfo *) getStatus;
+- (int) sendData:(long)timeout;
+- (int) requestPrintJobStatus:(NSString *)printJobId;
+- (int) addHLine:(long)x1 x2:(long)x2 style:(int)style;
+- (int) addVLineBegin:(long)x style:(int)style lineId:(int *)lineId;
+- (int) addVLineEnd:(int)lineId;
 - (int) addSound:(int)pattern repeat:(long)repeat cycle:(long)cycle;
 - (int) addFeedPosition:(int)position;
 - (int) addLayout:(int)type width:(long)width height:(long)height marginTop:(long)marginTop marginBottom:(long)marginBottom offsetCut:(long)offsetCut offsetLabel:(long)offsetLabel;
-- (int) addCommand:(NSData *)data;
-- (int) forceRecover:(long)timeout;
-- (int) forcePulse:(int)drawer pulseTime:(int)time timeout:(long)timeout;
 - (int) forceStopSound:(long)timeout;
 - (int) forceCommand:(NSData *)data timeout:(long)timeout;
-- (int) forceReset:(long)timeout;
 
 - (void) setStatusChangeEventDelegate:(id<Epos2PtrStatusChangeDelegate>)delegate;
 - (void) setReceiveEventDelegate:(id<Epos2PtrReceiveDelegate>)delegate;
 
 - (int) setInterval:(long)interval;
 - (long) getInterval;
+
+- (void) setConnectionEventDelegate:(id<Epos2ConnectionDelegate>)delegate;
+- (NSString *) getAdmin;
+- (NSString *) getLocation;
+@end
+
+@interface Epos2HybridPrinter : Epos2CommonPrinter
+- (id) initWithLang:(int)lang;
+- (void) dealloc;
+
+- (int) connect:(NSString *)target timeout:(long)timeout;
+- (int) disconnect;
+- (Epos2HybridPrinterStatusInfo *) getStatus;
+- (int) selectPaperType:(int)paperType;
+- (int) waitInsertion:(long)timeout;
+- (int) sendData:(long)timeout;
+- (int) cancelInsertion;
+- (int) ejectPaper;
+- (int) readMicrData:(int)micrFont timeout:(long)timeout;
+- (int) cleanMicrReader:(long)timeout;
+- (int) forceCommand:(NSData *)data timeout:(long)timeout;
+
+- (void) setStatusChangeEventDelegate:(id<Epos2HybdStatusChangeDelegate>)delegate;
+- (void) setReceiveEventDelegate:(id<Epos2HybdReceiveDelegate>)delegate;
+
+- (int) getPaperType;
+- (int) setInterval:(long)interval;
+- (long) getInterval;
+- (int) setWaitTime:(long)waitTime;
+- (long) getWaitTime;
+- (int) setMode40Cpl:(int)mode40Cpl;
+- (int) getMode40Cpl;
 
 - (void) setConnectionEventDelegate:(id<Epos2ConnectionDelegate>)delegate;
 - (NSString *) getAdmin;
@@ -780,6 +917,7 @@ enum Epos2LogLevel : int {
 
 @interface Epos2Log : NSObject
 + (int) setLogSettings:(int)period output:(int)output ipAddress:(NSString *)ipAddress port:(int)port logSize:(int)logSize logLevel:(int)logLevel;
++(NSString *) getSdkVersion;
 @end
 
 
