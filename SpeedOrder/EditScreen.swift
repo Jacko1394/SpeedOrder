@@ -168,8 +168,8 @@ class EditScreen: UIViewController, UITableViewDataSource, UITableViewDelegate, 
         let cell = extrasList.dequeueReusableCell(withReuseIdentifier: "extraItem", for: indexPath) as! extrasCell
         cell.index = (indexPath as NSIndexPath).row
         cell.delegate = self
-        cell.itemButton.setTitle(Ingredients.extraString[cell.index + 1], for: UIControlState())
-        cell.itemButton.setTitleColor(.black, for: UIControlState())
+        cell.itemButton.setTitle(Ingredients.extraString[cell.index + 1], for: UIControl.State())
+        cell.itemButton.setTitleColor(.black, for: UIControl.State())
         cell.itemButton.layer.cornerRadius = 10
         cell.itemButton.clipsToBounds = true
         

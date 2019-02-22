@@ -233,14 +233,14 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         cell.index = (indexPath as NSIndexPath).row + 1
         cell.delegate = self
-        cell.button.setTitle("\(cell.index)", for: UIControlState())
+        cell.button.setTitle("\(cell.index)", for: UIControl.State())
         cell.itemLabel.text! = MenuItems.itemString[cell.index]
         
         switch cell.index {
         case 1...17, 28...30: break //do nothing
-        case 18...25, 33...35: cell.button.setTitleColor(UIColor.orange, for: UIControlState())
-        case 26...27: cell.button.setTitleColor(UIColor.red, for: UIControlState())
-        case 31...32: cell.button.setTitleColor(UIColor.green, for: UIControlState())
+        case 18...25, 33...35: cell.button.setTitleColor(UIColor.orange, for: UIControl.State())
+        case 26...27: cell.button.setTitleColor(UIColor.red, for: UIControl.State())
+        case 31...32: cell.button.setTitleColor(UIColor.green, for: UIControl.State())
         default: print("menu item menu error")
         }
         return cell
