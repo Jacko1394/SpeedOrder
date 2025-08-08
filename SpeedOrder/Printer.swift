@@ -335,12 +335,12 @@ class Printer: NSObject, Epos2PtrReceiveDelegate {
     
     //
     func wordWrap(_ text: String, width: Int) -> String {
-        let array = text.characters.split{$0 == " "}.map(String.init)
+        let array = text.split{$0 == " "}.map(String.init)
         var newText = ""
         var count = 0
         
         for t in array {
-            let wordLength = t.characters.count
+            let wordLength = t.count
             if(wordLength + count > width) {
                 newText += "\n" + t + " "
                 count = wordLength + 1

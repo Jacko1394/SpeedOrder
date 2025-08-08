@@ -211,7 +211,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     //When text is added to the address/name field:
     @IBAction func textFieldChanged(_ sender: AnyObject) {
-        arrayAddressText = nameTextField.text!.characters.split{$0 == " "}.map(String.init)
+        arrayAddressText = nameTextField.text!.split{$0 == " "}.map(String.init)
         if(deliverySwitch.isOn && arrayAddressText.count > 1) {
             addressList.isHidden = false
             indexes = searchAddress(arrayAddressText[arrayAddressText.count - 1])
@@ -294,7 +294,7 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     //Searches thru address array based on string, returns found index numbers:
     func searchAddress(_ searchFor: String) -> [String]{
-        let max = searchFor.characters.count
+        let max = searchFor.count
         let place = ["", " (Bulla)", " (Wildwood)", " (Diggers)"]
         var foundIndexArray = [[Int](), [Int](), [Int](), [Int]()]
         var index = 0
@@ -304,8 +304,8 @@ class FirstViewController: UIViewController, UITableViewDataSource, UITableViewD
         for array in addressesArrays {
                 index = 0
                 for addresses in array {
-                    if(max <= addresses.characters.count) {
-                        let tempArray = Array(addresses.characters)
+                    if(max <= addresses.count) {
+                        let tempArray = Array(addresses)
                         var newString = ""
                         //for(var i = 0; i < max; ++i) {newString += "\(tempArray[i])"}
                         for i in 0 ..< max {newString += "\(tempArray[i])"}
